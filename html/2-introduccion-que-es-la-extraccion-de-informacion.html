@@ -10,10 +10,10 @@
 <script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
 <script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
 <link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
-</head>
+<link rel="stylesheet" href="../content/resources/aula-revision.css"></head>
 <body class="exe-export exe-web-site">
 <script>document.body.className+=" js"</script>
-<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-b97w2got8" id="skipNav">Skip to content</a> <nav id="siteNav">
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-b97w2got8" id="skipNav">Saltar al contenido</a> <nav id="siteNav">
 <ul>
 <li> <a href="../index.html" class="main-node no-ch">Técnicas y procesos de extracción de información</a>
 </li>
@@ -43,12 +43,9 @@
 </header><div id="page-content-page-mupyqxda-b97w2got8" class="page-content">
 <article id="block-mupyqxdc-u0unxxpnz" class="box no-header">
 <header class="box-head no-icon">
-<button class="box-toggle box-toggle-on" title="Toggle content">
-<span>Toggle content</span>
-</button></header>
+<button class="box-toggle box-toggle-on" title="Ocultar o mostrar contenido"><span>Ocultar o mostrar contenido</span></button></header>
 <div class="box-content">
-<div id="idevice-mupyqxdc-bpoowsgmc" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mupyqxdc-bpoowsgmc&quot;}">
-<p>En la vida diaria estamos rodeados de datos: notas de clase, listas de compras, publicaciones en redes sociales, registros de ventas, encuestas, etc. Sin embargo, tener datos <strong>no significa</strong> tener información útil.</p>
+<div id="idevice-mupyqxdc-bpoowsgmc" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data='{"ideviceId":"idevice-mupyqxdc-bpoowsgmc"}'><nav class="aula-indice" aria-label="En esta página"><strong>En esta página:</strong> <a href="#precisiones">De un número a una respuesta</a><a href="#caso">Un resultado que puedas explicar</a><a href="#material-base">Material de referencia original</a></nav><section class="aula" id="precisiones"><h2>De un número a una respuesta</h2><p>El valor 35 puede ser una edad, un precio o una temperatura. Sin variable, unidad, momento y procedencia no sabemos interpretarlo. En un conjunto de clientes, decide primero qué representa una fila: ¿una persona, un pedido o una visita? Contar filas solo cuenta clientes si la relación entre filas y clientes está definida.</p><p>En esta unidad usamos «extraer información» en sentido amplio. Técnicamente conviene separar: <strong>extracción</strong>, obtener o seleccionar datos; <strong>preparación</strong>, revisar y transformar su representación; <strong>análisis</strong>, responder una pregunta. Una tabla no se vuelve fiable solo por estar ordenada.</p><div class="aula-table"><table><thead><tr><th scope="col">Fuente</th><th scope="col">Formato o representación</th><th scope="col">Modo de acceso</th><th scope="col">Tratamiento posterior</th></tr></thead><tbody><tr><td>Archivo de clientes</td><td>CSV</td><td>Lectura de fichero</td><td>Filtrar y limpiar con pandas.</td></tr><tr><td>Servicio meteorológico</td><td>JSON</td><td>API mediante HTTP</td><td>Convertir series en una tabla.</td></tr><tr><td>Tienda web</td><td>HTML</td><td>Descarga de una página</td><td>Seleccionar etiquetas y convertir precios.</td></tr><tr><td>Base de datos</td><td>Tablas relacionadas</td><td>Consulta SQL</td><td>Comprobar claves y agregar.</td></tr><tr><td>Opiniones</td><td>Texto libre</td><td>Archivo, API u otra fuente</td><td>Tokenizar y contar palabras.</td></tr></tbody></table></div><p>Una API no es un formato y JSON no es una API. HTML tiene estructura de etiquetas, aunque contenga texto libre. Los logs pueden ser estructurados o semiestructurados según su diseño; estar en Internet tampoco determina la estructura.</p></section><section class="aula" id="caso"><h2>Un resultado que puedas explicar</h2><div class="aula-table"><table><thead><tr><th scope="col">nombre</th><th scope="col">edad</th><th scope="col">ciudad</th></tr></thead><tbody><tr><td>Ana</td><td>35</td><td>Madrid</td></tr><tr><td>Luis</td><td>30</td><td>Madrid</td></tr><tr><td>Eva</td><td>42</td><td>Santander</td></tr></tbody></table></div><p>La pregunta «clientes de Madrid con más de 30 años» devuelve a Ana. Luis no cumple <code>edad &gt; 30</code>; cumpliría <code>edad &gt;= 30</code>. Eva cumple la edad pero no la ciudad. Deben cumplirse ambas condiciones.</p><details class="aula-check"><summary>¿Por qué no podemos afirmar que Madrid tiene un cliente mayor de 30 años?</summary><p>Porque solo hemos contado en esta tabla de ejemplo. La conclusión correcta es: en los registros mostrados, una persona cumple el filtro. La fuente y el alcance limitan la conclusión.</p></details></section><div class="aula-original" id="material-base"><h2>Material de referencia original</h2><p>En la vida diaria estamos rodeados de datos: notas de clase, listas de compras, publicaciones en redes sociales, registros de ventas, encuestas, etc. Sin embargo, tener datos <strong>no significa</strong> tener información útil.</p>
 <p>La <strong>extracción de información</strong> es el proceso mediante el cual:</p>
 <ol>
 <li><strong>Localizamos datos</strong> en diferentes fuentes.</li>
@@ -96,7 +93,7 @@
 </ul>
 </li>
 </ul>
-</div>
+</div></div>
 </div>
 </article>
 </div></main><div class="nav-buttons">

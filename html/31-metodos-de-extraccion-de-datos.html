@@ -12,10 +12,10 @@
 <script src="../libs/exe_effects/exe_effects.js"> </script>
 <link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
 <link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
-</head>
+<link rel="stylesheet" href="../content/resources/aula-revision.css"></head>
 <body class="exe-export exe-web-site">
 <script>document.body.className+=" js"</script>
-<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-jl9p2z822" id="skipNav">Skip to content</a> <nav id="siteNav">
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-jl9p2z822" id="skipNav">Saltar al contenido</a> <nav id="siteNav">
 <ul>
 <li> <a href="../index.html" class="main-node no-ch">Técnicas y procesos de extracción de información</a>
 </li>
@@ -45,12 +45,24 @@
 </header><div id="page-content-page-mupyqxda-jl9p2z822" class="page-content">
 <article id="block-mupyqxdc-81qgd0zki" class="box no-header">
 <header class="box-head no-icon">
-<button class="box-toggle box-toggle-on" title="Toggle content">
-<span>Toggle content</span>
-</button></header>
+<button class="box-toggle box-toggle-on" title="Ocultar o mostrar contenido"><span>Ocultar o mostrar contenido</span></button></header>
 <div class="box-content">
-<div id="idevice-mupyqxdc-r41gxk1vy" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mupyqxdc-r41gxk1vy&quot;}">
-<p>Existen varios métodos para extraer datos según de dónde vengan:</p>
+<div id="idevice-mupyqxdc-r41gxk1vy" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data='{"ideviceId":"idevice-mupyqxdc-r41gxk1vy"}'><nav class="aula-indice" aria-label="En esta página"><strong>En esta página:</strong> <a href="#metodos-guia">Elegir un método con criterio</a><a href="#api-conceptos">API: qué sucede entre pedir y recibir</a><a href="#texto">Minería de texto: una primera representación</a><a href="#material-base">Material de referencia original</a></nav><section class="aula" id="metodos-guia"><h2>Elegir un método con criterio</h2><p>Los métodos originales se desarrollan debajo. SQL, API y scraping describen formas de acceder o seleccionar datos; la minería de texto trabaja sobre el contenido ya obtenido. Pueden combinarse: descargar opiniones mediante una API y después contar sus palabras.</p><div class="aula-table"><table><thead><tr><th scope="col">Caso</th><th scope="col">Elección razonable</th><th scope="col">Qué comprobar</th></tr></thead><tbody><tr><td>Clientes en una tabla del centro</td><td>SQL de lectura</td><td>Permisos, columnas necesarias y significado de cada fila.</td></tr><tr><td>Clientes en CSV proporcionado</td><td>Leer el fichero</td><td>Separador, codificación, cabecera y tipos.</td></tr><tr><td>Pronóstico documentado</td><td>API</td><td>Parámetros, zona horaria, unidades y posibles errores.</td></tr><tr><td>Productos en HTML permitido</td><td>Scraping</td><td>Selectores, campos ausentes y cambios de la página.</td></tr><tr><td>Temas frecuentes en opiniones</td><td>Procesamiento de texto</td><td>Idioma, tokenización, negación y alcance del análisis.</td></tr></tbody></table></div><p>Los servicios comerciales mencionados en el material pueden exigir cuenta, clave, tarifa o límites. Consulta su documentación antes de diseñar una actividad que dependa de ellos.</p></section><section class="aula" id="api-conceptos"><h2>API: qué sucede entre pedir y recibir</h2><figure><img src="../content/resources/aula-api.svg" alt="El programa envía URL y parámetros; el servicio devuelve un estado HTTP y un cuerpo. Comprueba el estado, interpreta JSON y valida las columnas." loading="lazy"><figcaption>El programa envía URL y parámetros; el servicio devuelve un estado HTTP y un cuerpo. Comprueba el estado, interpreta JSON y valida las columnas.</figcaption></figure><p><strong>Endpoint</strong> es la dirección de una operación; <strong>parámetros</strong> concretan lo que pides; <strong>respuesta</strong> contiene estado y datos. <code>200</code> indica éxito HTTP, <code>400</code> una solicitud no válida, <code>401/403</code> problemas de autenticación o permiso, <code>429</code> un límite de peticiones y <code>5xx</code> un error del servidor. No todos se solucionan repitiendo.</p><pre><code>import requests
+respuesta = requests.get(
+    "https://api.open-meteo.com/v1/forecast",
+    params={"latitude": 43.3828, "longitude": -3.2204,
+            "hourly": "temperature_2m", "forecast_days": 1,
+            "timezone": "Europe/Madrid"},
+    timeout=20,
+)
+respuesta.raise_for_status()
+datos = respuesta.json()
+print(datos.keys())</code></pre><p>La espera máxima evita quedar esperando indefinidamente por inactividad de la conexión; no constituye un plazo total garantizado de toda la descarga. <code>raise_for_status()</code> detecta errores HTTP; <code>json()</code> interpreta el cuerpo, pero no garantiza por sí solo que la petición haya tenido éxito. Después hay que validar la estructura esperada.</p><p class="aula-fuente">Consulta: <a href="https://requests.readthedocs.io/en/latest/user/quickstart/">Requests: peticiones, JSON y tiempos de espera</a>.</p><details class="aula-check"><summary>¿Una API siempre devuelve todos sus registros en una sola respuesta?</summary><p>No. Puede paginar, limitar el número de resultados o requerir varias consultas. Lee la documentación y registra cuántos elementos recibes; no supongas que una respuesta equivale al conjunto completo.</p></details></section><section class="aula" id="texto"><h2>Minería de texto: una primera representación</h2><p>Antes de intentar clasificar sentimientos, cuenta términos en un corpus pequeño. Decide si distinguir mayúsculas, cómo separar palabras y si conservar tildes. «No es bueno» contiene «bueno», pero expresa una negación: una lista de palabras positivas no comprende el significado completo.</p><pre><code>import re
+from collections import Counter
+textos = ["Buen precio y buen envío", "El envío llegó tarde"]
+tokens = re.findall(r"[^\W\d_]+", " ".join(textos).casefold())
+frecuencias = Counter(tokens)
+print(frecuencias.most_common(3))</code></pre><p>«buen» y «envío» aparecen dos veces cada uno. Este recuento describe las palabras de estos textos; no demuestra satisfacción general ni identifica automáticamente sus temas. Las reglas pueden cambiar el resultado: documéntalas.</p><details class="aula-check"><summary>¿Cuál es la fuente y cuál el tratamiento en este ejemplo?</summary><p>La fuente es la lista de comentarios ficticios. El tratamiento es convertir a minúsculas, tokenizar y contar. Minería de texto no indica cómo se descargaron esos comentarios.</p></details></section><div class="aula-original" id="material-base"><h2>Material de referencia original</h2><p>Existen varios métodos para extraer datos según de dónde vengan:</p>
 <div class="exe-fx exe-tabs">
 <h2>Consultas a bases de datos (SQL)</h2>
 <p>Cuando los datos están en una <strong>base de datos relacional</strong> (por ejemplo, MySQL, PostgreSQL, SQL Server), se accede a ellos mediante un lenguaje llamado <strong>SQL</strong> (Structured Query Language).</p>
@@ -108,7 +120,7 @@
 </ul>
 </li>
 </ul>
-<p><strong>Importante:</strong><br />Hay que respetar siempre las condiciones de uso de las webs (términos de servicio) y las leyes de protección de datos. No todo se puede scrapear libremente. </p>
+<p><strong>Importante:</strong><br>Hay que respetar siempre las condiciones de uso de las webs (términos de servicio) y las leyes de protección de datos. No todo se puede scrapear libremente. </p>
 <h2>Minería de texto (Text Mining)</h2>
 <p>La <strong>minería de texto</strong> se centra en trabajar con grandes cantidades de <strong>texto libre</strong>:</p>
 <ul>
@@ -133,7 +145,7 @@
 <p> </p>
 <p> </p>
 <p></p>
-</div>
+</div></div>
 </div>
 </article>
 </div></main><div class="nav-buttons">

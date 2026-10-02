@@ -12,10 +12,10 @@
 <script src="../libs/exe_effects/exe_effects.js"> </script>
 <link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
 <link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
-</head>
+<link rel="stylesheet" href="../content/resources/aula-revision.css"></head>
 <body class="exe-export exe-web-site">
 <script>document.body.className+=" js"</script>
-<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-wm4pd33nq" id="skipNav">Skip to content</a> <nav id="siteNav">
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-wm4pd33nq" id="skipNav">Saltar al contenido</a> <nav id="siteNav">
 <ul>
 <li> <a href="../index.html" class="main-node no-ch">Técnicas y procesos de extracción de información</a>
 </li>
@@ -45,12 +45,9 @@
 </header><div id="page-content-page-mupyqxda-wm4pd33nq" class="page-content">
 <article id="block-mupyqxdc-ztafdnyfj" class="box no-header">
 <header class="box-head no-icon">
-<button class="box-toggle box-toggle-on" title="Toggle content">
-<span>Toggle content</span>
-</button></header>
+<button class="box-toggle box-toggle-on" title="Ocultar o mostrar contenido"><span>Ocultar o mostrar contenido</span></button></header>
 <div class="box-content">
-<div id="idevice-mupyqxdc-ncnut7d2c" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mupyqxdc-ncnut7d2c&quot;}">
-<div class="exe-text-template">
+<div id="idevice-mupyqxdc-ncnut7d2c" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data='{"ideviceId":"idevice-mupyqxdc-ncnut7d2c"}'><nav class="aula-indice" aria-label="En esta página"><strong>En esta página:</strong> <a href="#contrato">Cómo trabajar y qué entregar</a><a href="#a1">Actividad 1 · decisiones que faltaba explicitar</a><a href="#a2">Actividad 2 · dos niveles claramente separados</a><a href="#a3">Actividad 3 · amplía la tienda de práctica</a><a href="#a4">Actividad 4 · completa el proceso</a><a href="#material-base">Material de referencia original</a></nav><section class="aula" id="contrato"><h2>Cómo trabajar y qué entregar</h2><p>Realiza primero los ejemplos guiados. Las actividades 1 y 2 originales siguen en esta página, con aclaraciones de alcance. Entrega un cuaderno ejecutado en orden, datos de salida y una explicación breve de decisiones. Las actividades 3 y 4 completan HTML y ETL. Las soluciones de autoevaluación no sustituyen tus evidencias.</p><div class="aula-table"><table><thead><tr><th scope="col">Actividad</th><th scope="col">Entrega mínima</th><th scope="col">Comprobación</th></tr></thead><tbody><tr><td>1. Clientes</td><td>Diagnóstico, reglas, incidencias, tabla limpia y resumen.</td><td>Reconciliar filas iniciales, duplicados retirados y filas finales.</td></tr><tr><td>2. Santander</td><td>Parámetros, tabla horaria, metadatos, máxima y mínima.</td><td>Longitudes iguales, unidades y fecha/zona explícitas.</td></tr><tr><td>3. Productos</td><td>Tabla con nombre, precio y estado.</td><td>Un registro por producto, ausentes identificados.</td></tr><tr><td>4. ETL</td><td>Archivo final y lectura de comprobación.</td><td>Repetir desde el inicio y contrastar entradas y salida.</td></tr></tbody></table></div></section><section class="aula" id="a1"><h2>Actividad 1 · decisiones que faltaba explicitar</h2><p>Utiliza la URL original de <code>clientes_actividad.csv</code> indicada más abajo. Si la fuente no está disponible, el CSV ficticio de apoyo permite practicar; identifica expresamente ese cambio en tu informe. No atribuyas al archivo externo el número de filas o incidencias de nuestros ejemplos.</p><p>Antes de corregir, imprime categorías y ejemplos de fechas. Define qué formatos acepta la fuente. Mantén una columna original y otra convertida. Los formatos ambiguos o inválidos se revisan; no se completan con una fecha inventada. Presenta las fechas como DD/MM/AAAA en una columna de salida, conservando su tipo temporal durante el análisis.</p><p>Para contar filas por ciudad usa <code>groupby("ciudad", dropna=False).size()</code>. Explica si las filas equivalen a clientes; sin identificador fiable no puedes garantizar personas únicas. Compara duplicados antes y después de homogeneizar y razona cada eliminación. Entrega también las reglas que has decidido no aplicar.</p><details class="aula-check"><summary>Antes había 20 filas y después quedan 17. ¿Qué falta en el informe?</summary><p>La explicación de las tres retiradas y la conciliación de recuentos. Debes mostrar si eran copias exactas u otra decisión; decir «se ha limpiado» no permite auditar el resultado.</p></details><p>En la versión consultada del archivo original hay <strong>22 filas, 20 identificadores distintos y dos copias completas</strong>. Contiene fechas inequívocas en distintos órdenes, como «03-20-24» (mes-día-año) y «15/01/2024» (día/mes/año), y otras ambiguas, como «05-02-23». No basta con aplicar día primero a todo. Para las ambiguas, pide o documenta la convención del origen; mientras no se conozca, márcalas como pendientes. Un año corto también necesita una regla de siglo.</p><p>Después de retirar las copias exactas y aplicar las erratas de ciudad indicadas, el control del resumen es: Madrid 8, Barcelona 4, Valencia 4 y Sevilla 4. Son controles de la versión consultada, no constantes universales de una URL que puede cambiar. El fichero dispone de <code>id_cliente</code>: comprueba que sea único tras retirar las copias y utiliza esa clave para justificar el recuento.</p></section><section class="aula" id="a2"><h2>Actividad 2 · dos niveles claramente separados</h2><p><strong>Ruta básica:</strong> reproduce el ejemplo JSON con <code>requests</code>, cambia las coordenadas a Santander (43.44083, −3.82238), solicita <code>temperature_2m</code>, <code>forecast_days=1</code> y <code>timezone=Europe/Madrid</code>. Transforma <code>hourly.time</code> y <code>hourly.temperature_2m</code>. Anota la fecha efectiva y las unidades; comprueba valores ausentes antes de calcular extremos.</p><p><strong>Ampliación:</strong> realiza la misma consulta con el cliente especializado, caché y reintentos que describe el enunciado original. Documenta duración de caché, número de intentos y formato de respuesta. Las dos rutas persiguen la misma tabla, pero no usan los mismos objetos ni las mismas instrucciones.</p><p>Entrega una frase como «En el pronóstico consultado para Santander el [fecha], con horas de Europe/Madrid, la máxima prevista es […] °C y la mínima […] °C». Completa con los valores obtenidos; no escribas «temperatura medida». Si utilizas la simulación, indica «ejercicio con datos simulados» y no presentes sus extremos como pronóstico actual.</p></section><section class="aula" id="a3"><h2>Actividad 3 · amplía la tienda de práctica</h2><p>Descarga el HTML de apoyo o copia el ejemplo de productos. Añade un cuarto producto de 12,95 € y otro sin precio. Antes de ejecutar, predice el número total de registros y de ausentes. Extrae el nombre, el texto original del precio, el importe numérico y una columna de incidencia.</p><p>Después prueba un importe «1.299,95 €». Diseña una conversión para el formato español con punto de millares y coma decimal. Comprueba también qué ocurre con una cadena que no representa un precio. No mezcles esa regla con precios en formato anglosajón. Explica la política para datos inválidos y conserva la evidencia original.</p></section><section class="aula" id="a4"><h2>Actividad 4 · completa el proceso</h2><p>Elige la tabla preparada de clientes o productos. Guarda un CSV sin índice, vuelve a cargarlo y comprueba columnas, número de registros, claves cuando existan y dos valores de control. Genera un resumen y un gráfico con título, ejes y unidades. Concluye qué permite afirmar el conjunto y qué queda fuera de su alcance.</p><p>Incluye una ficha de procedencia: origen, fecha de consulta, representación, reglas aplicadas y limitaciones. Conserva por separado entrada, resultado e incidencias. Reinicia la sesión de Colab y ejecuta todo para comprobar que no dependes de variables antiguas.</p><div class="aula-table"><table><thead><tr><th scope="col">Criterio</th><th scope="col">Peso orientativo</th><th scope="col">Evidencia de logro</th></tr></thead><tbody><tr><td>Extracción y procedencia</td><td>20 %</td><td>Fuente, parámetros y alcance identificados.</td></tr><tr><td>Preparación razonada</td><td>30 %</td><td>Reglas explícitas, originales e incidencias conservados.</td></tr><tr><td>Validación y reproducción</td><td>30 %</td><td>Controles con resultado explicado y ejecución completa.</td></tr><tr><td>Interpretación y comunicación</td><td>20 %</td><td>Resumen y gráfico correctos, conclusión limitada a la muestra.</td></tr></tbody></table></div><p>La rúbrica es una propuesta para el aula. El profesorado puede ajustar pesos y tiempos. La corrección se valora por la justificación de decisiones y las comprobaciones, no por ocultar todos los valores ausentes.</p></section><div class="aula-original" id="material-base"><h2>Material de referencia original</h2><div class="exe-text-template">
     <div class="exe-fx exe-paginated">
 <h2>Actividad 1 – Limpieza de Datos con Pandas</h2>
 <p><strong>Material</strong></p>
@@ -94,22 +91,22 @@
 </ol>
 <p><strong>Objetivo de la actividad</strong></p>
 <ul>
-<li>Comprender que la <strong>limpieza</strong> y <strong>normalización</strong> es el paso más crítico tras la extracción de datos en bruto.</li>
+<li>Comprender que la <strong>limpieza</strong> y <strong>normalización</strong> es el paso fundamental tras la extracción de datos en bruto.</li>
 <li>Practicar las funciones esenciales de limpieza de datos en la herramienta estándar de Python para Data Science: <strong>Pandas</strong>.</li>
 <li>Generar un resumen analítico simple a partir de datos limpios.</li>
 </ul>
-<h2>Actividad 2 – Uso de una API pública (nivel básico con JSON)</h2>
-<p><strong>Contexto</strong><br />En esta actividad, simularás la tarea de un analista que necesita obtener el pronóstico de la temperatura horaria para una ciudad específica (por ejemplo, Castro Urdiales), accediendo a una API profesional de datos meteorológicos.</p>
+<h2>Actividad 2 original · ampliación con cliente especializado</h2>
+<p><strong>Contexto</strong><br>En esta actividad, simularás la tarea de un analista que necesita obtener el pronóstico de la temperatura horaria para una ciudad específica (por ejemplo, Castro Urdiales), accediendo a una API profesional de datos meteorológicos.</p>
 <p> <strong>Material</strong></p>
 <ul>
 <li>Cuaderno de <strong>Google Colab</strong>.</li>
 <li>Acceso a la API pública de <strong>Open-Meteo</strong>.</li>
 <li>Librerías de Python: <span style="font-family: courier new, courier, monospace;">openmeteo_requests, pandas, requests_cache</span>, y <span style="font-family: courier new, courier, monospace;">retry_requests</span>. </li>
 </ul>
-<p><strong>Tareas del Alumnado</strong><br />El objetivo es extraer la temperatura horaria del día de hoy y transformarla en un formato de tabla utilizable.</p>
+<p><strong>Tareas del Alumnado</strong><br>El objetivo es extraer la temperatura horaria del día de hoy y transformarla en un formato de tabla utilizable.</p>
 <p><strong>1. Preparación y Extracción (API)</strong></p>
 <ol>
-<li><strong>Configura el cliente de la API</strong> en Colab (tal como se ha visto en clase), implementando la <strong>caché</strong> y los <strong>reintentos</strong> (retry) para garantizar una extracción eficiente y fiable.</li>
+<li><strong>Configura el cliente de la API</strong> en Colab (tal como se ha visto en clase), implementando la <strong>caché</strong> y los <strong>reintentos</strong> (retry) para mejorar la eficiencia y la tolerancia a fallos, sin garantizar el éxito de la petición.</li>
 <li><strong>Define los parámetros</strong> de la consulta para obtener los siguientes datos para <strong>Santander</strong> (Latitud : 43.440829950828544, Longitud : -3.8223838944785076):
 <ul>
 <li>Pronóstico <strong>horario</strong> de la variable <strong>temperature_2m</strong>.</li>
@@ -144,15 +141,15 @@
 </ol>
 <p><strong>Objetivo de la actividad</strong></p>
 <ul>
-<li>Comprender el flujo de trabajo completo: <strong>Configuración de cliente → Extracción de datos JSON desde la API → Transformación a un DataFrame.</strong></li>
+<li>Comprender el flujo de trabajo completo: <strong>Configuración de cliente → Extracción de datos mediante el cliente especializado → Transformación a un DataFrame.</strong></li>
 <li>Practicar la <strong>desestructuración</strong> de datos semiestructurados.</li>
 <li>Aplicar funciones básicas de resumen (max, min) sobre un conjunto de datos transformado.</li>
 </ul>
 </div>
-<p><br /></p>
-<p><br /></p>
+<p><br></p>
+<p><br></p>
 </div>
-</div>
+</div></div>
 </div>
 </article>
 </div></main><div class="nav-buttons">
