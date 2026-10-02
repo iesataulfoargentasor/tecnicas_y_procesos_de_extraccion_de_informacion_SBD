@@ -12,10 +12,10 @@
 <script src="../libs/exe_effects/exe_effects.js"> </script>
 <link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
 <link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
-</head>
+<link rel="stylesheet" href="../content/resources/aula-revision.css"></head>
 <body class="exe-export exe-web-site">
 <script>document.body.className+=" js"</script>
-<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-dvybsiius" id="skipNav">Skip to content</a> <nav id="siteNav">
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-dvybsiius" id="skipNav">Saltar al contenido</a> <nav id="siteNav">
 <ul>
 <li> <a href="../index.html" class="main-node no-ch">Técnicas y procesos de extracción de información</a>
 </li>
@@ -45,12 +45,17 @@
 </header><div id="page-content-page-mupyqxda-dvybsiius" class="page-content">
 <article id="block-mupyqxdc-4i4inoer0" class="box no-header">
 <header class="box-head no-icon">
-<button class="box-toggle box-toggle-on" title="Toggle content">
-<span>Toggle content</span>
-</button></header>
+<button class="box-toggle box-toggle-on" title="Ocultar o mostrar contenido"><span>Ocultar o mostrar contenido</span></button></header>
 <div class="box-content">
-<div id="idevice-mupyqxdc-iyzj4zpww" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mupyqxdc-iyzj4zpww&quot;}">
-<p>Para empezar a trabajar con extracción y preparación de datos no hace falta ser experto ni usar herramientas muy complicadas.</p>
+<div id="idevice-mupyqxdc-iyzj4zpww" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data='{"ideviceId":"idevice-mupyqxdc-iyzj4zpww"}'><nav class="aula-indice" aria-label="En esta página"><strong>En esta página:</strong> <a href="#herramientas">Qué hace cada herramienta</a><a href="#etl">ETL mínimo: guardar también es parte del trabajo</a><a href="#errores">Cuando algo falla</a><a href="#material-base">Material de referencia original</a></nav><section class="aula" id="herramientas"><h2>Qué hace cada herramienta</h2><div class="aula-table"><table><thead><tr><th scope="col">Herramienta</th><th scope="col">Responsabilidad</th><th scope="col">Límite que debes recordar</th></tr></thead><tbody><tr><td>Hoja de cálculo</td><td>Explorar tablas, filtrar y resumir.</td><td>Una edición manual requiere registrar los pasos para repetirla.</td></tr><tr><td>pandas</td><td>Leer tablas, convertir, filtrar, agrupar y exportar.</td><td>No decide qué dato es verdadero.</td></tr><tr><td>requests</td><td>Intercambiar peticiones y respuestas HTTP.</td><td>No ejecuta el JavaScript de una página.</td></tr><tr><td>BeautifulSoup</td><td>Analizar HTML y seleccionar nodos.</td><td>No descarga por sí sola la página ni es un navegador.</td></tr><tr><td>SQL / SQLite</td><td>Consultar tablas y relaciones.</td><td>SQL es el lenguaje; SQLite es un motor.</td></tr><tr><td>Herramienta ETL</td><td>Coordinar extracciones, transformaciones y cargas.</td><td>Necesita reglas, supervisión y validaciones igualmente.</td></tr></tbody></table></div><p>En Python, <code>import</code> carga una biblioteca ya instalada. Instalarla y utilizarla son operaciones distintas. Para los ejemplos de HTML del cuaderno puedes ejecutar <code>%pip install beautifulsoup4</code> si no está disponible. SQLite forma parte de la biblioteca estándar de Python.</p></section><section class="aula" id="etl"><h2>ETL mínimo: guardar también es parte del trabajo</h2><p><strong>Extraer</strong> obtiene los registros; <strong>transformar</strong> aplica reglas; <strong>cargar</strong> guarda el resultado en su destino. Un gráfico es un análisis posterior, no sustituye a guardar la tabla. ETL puede realizarse con un programa pequeño: no requiere una plataforma empresarial.</p><figure><img src="../content/resources/aula-etl.svg" alt="Extraer con procedencia → transformar con reglas → cargar en CSV → volver a leer y comprobar. El informe registra entradas, salidas e incidencias." loading="lazy"><figcaption>Extraer con procedencia → transformar con reglas → cargar en CSV → volver a leer y comprobar. El informe registra entradas, salidas e incidencias.</figcaption></figure><pre><code>from pathlib import Path
+import pandas as pd
+tabla = pd.DataFrame({"id": [1, 2], "ciudad": ["Madrid", "Santander"]})
+Path("resultados").mkdir(exist_ok=True)
+tabla.to_csv("resultados/clientes.csv", index=False, encoding="utf-8")
+recuperado = pd.read_csv("resultados/clientes.csv")
+assert list(recuperado.columns) == list(tabla.columns)
+assert recuperado.to_dict("records") == tabla.to_dict("records")
+print("Carga comprobada:", len(recuperado), "filas")</code></pre><p>La salida es «Carga comprobada: 2 filas». <code>index=False</code> evita añadir el índice como columna. CSV no conserva todos los tipos de pandas: al reabrir, debes declarar los tipos y formatos relevantes, especialmente fechas e identificadores con ceros iniciales.</p><details class="aula-check"><summary>¿Qué ocurre si una unión por ciudad encuentra dos filas para Madrid en la tabla auxiliar?</summary><p>Puede multiplicar registros. Comprueba la unicidad de la clave de la tabla auxiliar y utiliza una validación de relación, por ejemplo merge(..., validate="many_to_one"), cuando esa sea la relación prevista.</p></details></section><section class="aula" id="errores"><h2>Cuando algo falla</h2><div class="aula-table"><table><thead><tr><th scope="col">Síntoma</th><th scope="col">Revisión inicial</th></tr></thead><tbody><tr><td>FileNotFoundError</td><td>Comprueba nombre, carpeta y si has subido el archivo a Colab.</td></tr><tr><td>KeyError</td><td>Imprime df.columns o las claves del diccionario; revisa espacios y mayúsculas.</td></tr><tr><td>Una sola columna al leer CSV</td><td>Comprueba si el separador es coma o punto y coma.</td></tr><tr><td>ModuleNotFoundError</td><td>Instala la biblioteca en la sesión correcta y vuelve a importar.</td></tr><tr><td>Tabla vacía tras filtrar</td><td>Revisa tipos, categorías, espacios y si el resultado vacío es legítimo.</td></tr><tr><td>Error HTTP o espera agotada</td><td>Revisa URL, parámetros y conexión; no sustituyas datos reales por simulados sin avisar.</td></tr></tbody></table></div></section><div class="aula-original" id="material-base"><h2>Material de referencia original</h2><p>Para empezar a trabajar con extracción y preparación de datos no hace falta ser experto ni usar herramientas muy complicadas.</p>
 <p><strong>a) Excel / Google Sheets</strong></p>
 <p><strong>b) Python + librerías</strong></p>
 <p><strong>c) Herramientas ETL (más avanzadas)</strong></p>
@@ -99,7 +104,7 @@
 <p>Se usan sobre todo en entornos profesionales donde hay que mover grandes volúmenes de datos entre sistemas, de forma regular (por ejemplo, todos los días).</p>
 <p>Para este tema <strong>no es necesario profundizar</strong> en ellas, pero es útil conocer que existen.</p>
 </div>
-</div>
+</div></div>
 </div>
 </article>
 </div></main><div class="nav-buttons">

@@ -859,3 +859,9 @@ button.toggler:focus-visible,
         padding-top: 1em;
     }
 }
+
+/* Ampliación didáctica: compatible con el tema original */
+.aula{border:1px solid #ccdcd9;border-left:5px solid #087b75;border-radius:8px;padding:24px;margin:24px 0;background:#fff;line-height:1.75;color:#203b43}
+.aula h2{color:#075f5d;margin:0 0 18px}.aula p{max-width:82ch}.aula pre{background:#102d3a;color:#edf7f8;padding:18px;border-radius:6px;overflow:auto;line-height:1.6}.aula pre code{color:inherit;white-space:pre;font-size:14px}.aula-table{overflow-x:auto;margin:20px 0}.aula table{width:100%;min-width:480px;border-collapse:collapse}.aula td,.aula th{padding:12px;border:1px solid #d6e3e0;text-align:left;vertical-align:top}.aula th{background:#e6f3ef}.aula figure{margin:24px 0}.aula figure img{width:100%;height:auto}.aula figcaption{font-size:.9em;color:#405c63;margin:10px 0}.aula-check{background:#edf7f3;border:1px solid #c8dfd6;padding:16px;margin:18px 0}.aula-check summary{cursor:pointer;font-weight:700}.aula-check summary:focus-visible{outline:3px solid #956900}.aula-fuente{font-size:.9em}.aula-indice{padding:16px;background:#eef5f3;border-radius:6px}.aula-indice a{display:inline-block;margin:5px 14px 5px 0}.aula-kicker{font-weight:700;color:#075f5d}.aula-original{border-top:2px solid #bdd5cf;padding-top:20px;margin-top:30px}.idevice_node a{overflow-wrap:anywhere}@media(max-width:600px){.aula{padding:16px}.aula table{font-size:14px}.aula pre{padding:12px}}@media print{.aula{break-inside:auto}.aula pre{white-space:pre-wrap}.aula pre code{white-space:pre-wrap}.aula-check>p{display:block}}
+
+.nav-buttons .nav-button span,.box-toggle span,#made-with-eXe span span{width:1px;height:1px;overflow:hidden;white-space:nowrap}#made-with-eXe a{overflow:hidden}

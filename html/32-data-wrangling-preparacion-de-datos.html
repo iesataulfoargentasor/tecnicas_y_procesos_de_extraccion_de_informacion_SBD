@@ -12,10 +12,10 @@
 <script src="../libs/exe_effects/exe_effects.js"> </script>
 <link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
 <link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
-</head>
+<link rel="stylesheet" href="../content/resources/aula-revision.css"></head>
 <body class="exe-export exe-web-site">
 <script>document.body.className+=" js"</script>
-<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-2nupwyodc" id="skipNav">Skip to content</a> <nav id="siteNav">
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-2nupwyodc" id="skipNav">Saltar al contenido</a> <nav id="siteNav">
 <ul>
 <li> <a href="../index.html" class="main-node no-ch">Técnicas y procesos de extracción de información</a>
 </li>
@@ -45,12 +45,37 @@
 </header><div id="page-content-page-mupyqxda-2nupwyodc" class="page-content">
 <article id="block-mupyqxdc-svwa8u5x3" class="box no-header">
 <header class="box-head no-icon">
-<button class="box-toggle box-toggle-on" title="Toggle content">
-<span>Toggle content</span>
-</button></header>
+<button class="box-toggle box-toggle-on" title="Ocultar o mostrar contenido"><span>Ocultar o mostrar contenido</span></button></header>
 <div class="box-content">
-<div id="idevice-mupyqxdc-x6g3lcbxv" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mupyqxdc-x6g3lcbxv&quot;}">
-<p>Extraer datos es solo el primer paso. Normalmente, cuando obtenemos datos de una base de datos, una API o un fichero, estos suelen venir:</p>
+<div id="idevice-mupyqxdc-x6g3lcbxv" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data='{"ideviceId":"idevice-mupyqxdc-x6g3lcbxv"}'><nav class="aula-indice" aria-label="En esta página"><strong>En esta página:</strong> <a href="#calidad">Primero diagnosticar, después decidir</a><a href="#reglas">Duplicados, claves y correcciones justificadas</a><a href="#fechas">Fechas: interpretar y presentar son pasos distintos</a><a href="#validar">Validar y contar sin ocultar problemas</a><a href="#material-base">Material de referencia original</a></nav><section class="aula" id="calidad"><h2>Primero diagnosticar, después decidir</h2><p>Conserva la tabla original. Revisa dimensiones, nombres de columnas, tipos, valores ausentes, categorías y duplicados. No borres filas solo porque parecen extrañas: una edad desconocida es distinta de una edad imposible, y ambas son distintas de un cero válido en otra variable.</p><pre><code>import pandas as pd
+from io import StringIO
+bruto = pd.read_csv(StringIO("""id,nombre,edad,ciudad,fecha_registro
+1,Ana,35,Madird,01/02/2024
+2,Luis,, Madrid ,2024-02-02
+2,Luis,, Madrid ,2024-02-02
+3,Eva,42,Santander,31/02/2024
+"""))
+print(bruto.shape)
+print(bruto.dtypes)
+print(bruto.isna().sum())
+print("Duplicados completos:", bruto.duplicated().sum())</code></pre><p>Se esperan cuatro filas, una copia completa repetida y dos edades ausentes, porque la fila de Luis aparece dos veces. Ese diagnóstico inicial difiere del número de ausentes tras quitar la copia. Conserva ambos recuentos.</p><figure><img src="../content/resources/aula-calidad.svg" alt="Cuatro filas originales → tres tras retirar una copia exacta → una ciudad corregida → una fecha inválida marcada como NaT. Un ausente no se convierte en cero." loading="lazy"><figcaption>Cuatro filas originales → tres tras retirar una copia exacta → una ciudad corregida → una fecha inválida marcada como NaT. Un ausente no se convierte en cero.</figcaption></figure></section><section class="aula" id="reglas"><h2>Duplicados, claves y correcciones justificadas</h2><p><code>drop_duplicates()</code> compara todas las columnas por defecto. Repetir un identificador con campos distintos es un conflicto que exige una regla: no equivale a una copia exacta. Repetir un nombre tampoco demuestra que sea la misma persona.</p><pre><code>limpio = bruto.drop_duplicates().copy()
+conflictos = limpio[limpio.duplicated("id", keep=False)]
+print("Conflictos por id:", len(conflictos))
+limpio["ciudad"] = limpio["ciudad"].str.strip().replace({"Madird": "Madrid"})
+print(limpio[["id", "ciudad"]])</code></pre><p>La salida tiene tres filas y cero conflictos por id. <code>strip()</code> retira espacios exteriores, pero no corrige erratas. El diccionario de sustituciones aplica una regla documentada; no debemos convertir cualquier palabra parecida en Madrid. Si falta evidencia, marca el caso para revisión.</p><div class="aula-table"><table><thead><tr><th scope="col">Situación</th><th scope="col">Decisión posible</th><th scope="col">Justificación necesaria</th></tr></thead><tbody><tr><td>Edad ausente</td><td>Conservarla como ausente</td><td>No inventar la edad de una persona.</td></tr><tr><td>Registro copiado completamente</td><td>Retirar una copia</td><td>La unidad de registro no admite copias idénticas.</td></tr><tr><td>Dos versiones del mismo id</td><td>Separar para revisión</td><td>Determinar cuál es válida usando fecha o fuente fiable.</td></tr><tr><td>Categoría con errata conocida</td><td>Sustituir con diccionario</td><td>Guardar la correspondencia aplicada.</td></tr></tbody></table></div><details class="aula-check"><summary>¿Rellenar todas las edades ausentes con la media resuelve el problema?</summary><p>No necesariamente. Imputar altera la distribución y puede cambiar quién supera el filtro. Si se decide imputar en otro contexto, hay que justificar el método, conservar una marca de imputación y evaluar su efecto.</p></details></section><section class="aula" id="fechas"><h2>Fechas: interpretar y presentar son pasos distintos</h2><p>«01/02/2024» es ambiguo sin una convención. Para este ejemplo declaramos día/mes/año en las fechas con barras y año-mes-día en las fechas ISO. Conservamos el texto original. No atribuimos a <code>dayfirst=True</code> la capacidad de resolver la intención del autor.</p><pre><code>texto = limpio["fecha_registro"].astype("string").str.strip()
+fechas = pd.to_datetime(texto, format="%d/%m/%Y", errors="coerce")
+iso = texto.str.fullmatch(r"\d{4}-\d{2}-\d{2}", na=False)
+fechas.loc[iso] = pd.to_datetime(texto.loc[iso], format="%Y-%m-%d", errors="coerce")
+limpio["fecha"] = fechas
+incidencias = limpio.loc[texto.notna() &amp; fechas.isna(), ["id", "fecha_registro"]]
+print(incidencias)
+print(limpio["fecha"].dt.strftime("%d/%m/%Y"))</code></pre><p>El 31 de febrero no existe y queda como <code>NaT</code>; el registro 3 debe figurar en incidencias. <code>strftime</code> produce texto para presentación: conserva <code>fecha</code> como fecha para ordenar y calcular. En la actividad original, inspecciona los formatos reales antes de ampliar las reglas; un año de dos cifras necesita una convención de siglo explícita.</p><p class="aula-fuente">Consulta: <a href="https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html">pandas: conversión de fechas</a>.</p><p>Aquí «normalizar» significa homogeneizar representaciones. No es lo mismo que normalizar tablas relacionales ni escalar variables para aprendizaje automático.</p></section><section class="aula" id="validar"><h2>Validar y contar sin ocultar problemas</h2><pre><code>assert len(limpio) == 3
+assert limpio["id"].is_unique
+assert limpio["edad"].dropna().between(0, 120).all()
+assert limpio["fecha"].isna().sum() == 1
+resumen = limpio.groupby("ciudad", dropna=False).size().rename("registros")
+print(resumen)
+assert resumen.sum() == len(limpio)</code></pre><p>Resultado esperado: Madrid 2, Santander 1. El rango 0–120 es una regla didáctica que debe adaptarse a la población real. <code>size()</code> cuenta filas; <code>count()</code> cuenta valores no ausentes por columna. Al contar edades, Luis no contribuiría y parecería que Madrid solo tiene un registro. Habla de clientes únicos únicamente si has validado la clave y la unidad de observación.</p><details class="aula-check"><summary>¿Por qué el proceso puede terminar con un dato todavía ausente?</summary><p>Porque calidad no significa inventar información hasta llenar todas las celdas. Un resultado puede conservar un ausente identificado, documentar su causa y limitar los análisis que dependen de él.</p></details></section><div class="aula-original" id="material-base"><h2>Material de referencia original</h2><p>Extraer datos es solo el primer paso. Normalmente, cuando obtenemos datos de una base de datos, una API o un fichero, estos suelen venir:</p>
 <ul>
 <li>con errores,</li>
 <li>incompletos,</li>
@@ -113,9 +138,9 @@
 </ul>
 </div>
 <p><strong>Dato importante:</strong></p>
-<p>Se estima que, en un proyecto de datos, alrededor del <strong>80% del tiempo</strong> se dedica a limpiar y preparar los datos, y solo el 20% al análisis en sí.</p>
+<p>La preparación puede ocupar una parte importante del trabajo; su duración depende de las fuentes y de los requisitos del proyecto. No existe un porcentaje universal.</p>
 <p>Si los datos están mal, el análisis y las conclusiones también lo estarán.</p>
-</div>
+</div></div>
 </div>
 </article>
 </div></main><div class="nav-buttons">

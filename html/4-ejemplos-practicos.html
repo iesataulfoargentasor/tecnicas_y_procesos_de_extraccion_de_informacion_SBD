@@ -12,10 +12,10 @@
 <script src="../libs/exe_effects/exe_effects.js"> </script>
 <link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
 <link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
-</head>
+<link rel="stylesheet" href="../content/resources/aula-revision.css"></head>
 <body class="exe-export exe-web-site">
 <script>document.body.className+=" js"</script>
-<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-c3usehs5l" id="skipNav">Skip to content</a> <nav id="siteNav">
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-c3usehs5l" id="skipNav">Saltar al contenido</a> <nav id="siteNav">
 <ul>
 <li> <a href="../index.html" class="main-node no-ch">Técnicas y procesos de extracción de información</a>
 </li>
@@ -45,17 +45,65 @@
 </header><div id="page-content-page-mupyqxda-c3usehs5l" class="page-content">
 <article id="block-mupyqxdc-0u2tgicos" class="box no-header">
 <header class="box-head no-icon">
-<button class="box-toggle box-toggle-on" title="Toggle content">
-<span>Toggle content</span>
-</button></header>
+<button class="box-toggle box-toggle-on" title="Ocultar o mostrar contenido"><span>Ocultar o mostrar contenido</span></button></header>
 <div class="box-content">
-<div id="idevice-mupyqxdc-jgut0sc2g" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mupyqxdc-jgut0sc2g&quot;}">
-<div class="exe-text-template">
+<div id="idevice-mupyqxdc-jgut0sc2g" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data='{"ideviceId":"idevice-mupyqxdc-jgut0sc2g"}'><nav class="aula-indice" aria-label="En esta página"><strong>En esta página:</strong> <a href="#csv-guiado">Práctica guiada 1 · leer y filtrar un CSV</a><a href="#json-guiado">Práctica guiada 2 · JSON antes de la conexión real</a><a href="#sdk">Ampliación · cliente Open-Meteo, caché y reintentos</a><a href="#html-guiado">Práctica guiada 3 · del HTML a productos</a><a href="#sql-guiado">Práctica guiada 4 · la misma pregunta con SQL</a><a href="#material-base">Material de referencia original</a></nav><section class="aula" id="csv-guiado"><h2>Práctica guiada 1 · leer y filtrar un CSV</h2><p>Este ejemplo es autónomo y usa datos ficticios incluidos, por lo que puedes anticipar la salida sin depender de una descarga. En el ejemplo original conservado más abajo encontrarás la URL del CSV externo; leer <code>clientes.csv</code> solo funciona si antes has descargado o subido ese archivo.</p><pre><code>import pandas as pd
+from io import StringIO
+csv = """nombre,edad,ciudad
+Ana,35,Madrid
+Luis,30,Madrid
+Eva,42,Santander
+"""
+df = pd.read_csv(StringIO(csv))
+mascara = (df["ciudad"] == "Madrid") &amp; (df["edad"] &gt; 30)
+resultado = df.loc[mascara, ["nombre", "edad", "ciudad"]]
+print(resultado.to_string(index=False))
+assert resultado["nombre"].tolist() == ["Ana"]</code></pre><p>Cada comparación genera una serie de verdaderos y falsos. <code>&amp;</code> combina condiciones por fila; usa paréntesis y no el <code>and</code> de dos valores escalares. La salida contiene Ana, 35, Madrid. Para utilizar el fichero remoto original, asigna su URL a una variable y pásala a <code>pd.read_csv(url)</code>; comprueba sus columnas antes de filtrar.</p><details class="aula-check"><summary>Cambia &gt; por &gt;=. ¿Qué cambia?</summary><p>Entran Ana y Luis. Has cambiado el requisito de edad, por lo que debes cambiar también la descripción del resultado.</p></details><p>En el CSV remoto original consultado hay 20 filas; ocho cumplen Madrid y edad mayor de 30. El resultado Ana corresponde únicamente al microejemplo ficticio anterior. Contrasta tus resultados con la fuente que hayas utilizado y registra cuándo la consultaste.</p></section><section class="aula" id="json-guiado"><h2>Práctica guiada 2 · JSON antes de la conexión real</h2><p>Los siguientes datos son <strong>simulados</strong> y contienen solo dos horas. No son el tiempo actual ni el pronóstico completo de un día. Primero comprende cómo se recorre el diccionario; después sustituye la entrada por una respuesta real.</p><figure><img src="../content/resources/aula-json.svg" alt="El elemento 0 de time se empareja con el elemento 0 de temperature_2m; cada pareja forma una fila. Comprueba la longitud de las dos listas antes de crear la tabla." loading="lazy"><figcaption>El elemento 0 de time se empareja con el elemento 0 de temperature_2m; cada pareja forma una fila. Comprueba la longitud de las dos listas antes de crear la tabla.</figcaption></figure><pre><code>import pandas as pd
+datos = {
+    "hourly_units": {"temperature_2m": "°C"},
+    "hourly": {"time": ["2024-02-01T10:00", "2024-02-01T11:00"],
+               "temperature_2m": [12.5, 13.0]}
+}
+horas = datos["hourly"]["time"]
+valores = datos["hourly"]["temperature_2m"]
+assert len(horas) == len(valores) and len(horas) &gt; 0
+assert datos["hourly_units"]["temperature_2m"] == "°C"
+tabla = pd.DataFrame({"hora_local": pd.to_datetime(horas), "temperatura_c": valores})
+assert tabla["temperatura_c"].notna().all()
+print(tabla)
+print("Máxima:", tabla["temperatura_c"].max())</code></pre><p>La primera fila es 10:00 → 12,5 °C y la segunda 11:00 → 13 °C. La máxima de este fragmento es 13 °C. Esta conversión no es una unión por clave: empareja posiciones de dos listas del mismo bloque horario.</p><p>Para consultar la API real, ejecuta la petición de 3.1 y usa su variable <code>datos</code>; ejecuta después la transformación desde <code>horas = ...</code>, sin volver a asignar el JSON simulado. Anota ubicación, fecha de consulta, unidades y zona horaria. Declara <code>timezone="Europe/Madrid"</code> para delimitar el día local. Las marcas locales sin desplazamiento no identifican por sí solas instantes UTC, especialmente en cambios de hora: para una cronología inequívoca usa UTC o marcas Unix y convierte explícitamente.</p><p>Un pronóstico procede de un modelo; no es una medición observada. No fijes una temperatura esperada para la API real, porque cambia. Comprueba longitudes, tipos, ausentes y metadatos en vez de suponer siempre 24 filas.</p><p class="aula-fuente">Consulta: <a href="https://open-meteo.com/en/docs">Open-Meteo: parámetros, variables y zona horaria</a>.</p></section><section class="aula" id="sdk"><h2>Ampliación · cliente Open-Meteo, caché y reintentos</h2><p>El ejemplo original de esta página utiliza <code>openmeteo_requests</code>. Ese cliente expone objetos y arrays a partir de FlatBuffers; no se recorre igual que un diccionario JSON de <code>requests</code>. La API admite JSON, pero <code>response.Hourly()</code> pertenece al cliente especializado. Por eso esta ruta queda como ampliación.</p><p>Caché significa reutilizar una respuesta guardada durante un tiempo; acelera consultas repetidas, pero puede devolver un pronóstico anterior. Reintentar puede ayudar ante fallos transitorios, pero no corrige parámetros incorrectos ni garantiza éxito. Limita los intentos y registra si usaste caché.</p><p>El fragmento original presupone que has instalado e importado las bibliotecas, creado el cliente y definido <code>url</code>. No es una celda autónoma. Sigue el cuaderno original enlazado para esa ruta y comprueba qué versión utiliza. Al construir el índice temporal con inicio, fin e intervalo, el límite final suele ser exclusivo: contrasta siempre su longitud con el array recibido.</p><p class="aula-fuente">Consulta: <a href="https://github.com/open-meteo/python-requests">Cliente Python oficial de Open-Meteo</a>.</p></section><section class="aula" id="html-guiado"><h2>Práctica guiada 3 · del HTML a productos</h2><p>Inspecciona un producto antes del bucle: <code>article</code> agrupa el registro, <code>h2</code> contiene el nombre y <code>.precio</code> selecciona la clase precio. Busca dentro de cada producto para no mezclar el precio de otro registro. Este HTML local está preparado para aprender, no requiere acceder a tiendas reales.</p><pre><code>from bs4 import BeautifulSoup
+from decimal import Decimal
+import pandas as pd
+documento = """&lt;article class="producto"&gt;&lt;h2&gt;Cuaderno&lt;/h2&gt;&lt;span class="precio"&gt;3,50 €&lt;/span&gt;&lt;/article&gt;
+&lt;article class="producto"&gt;&lt;h2&gt;Lápiz&lt;/h2&gt;&lt;span class="precio"&gt;1,20 €&lt;/span&gt;&lt;/article&gt;
+&lt;article class="producto"&gt;&lt;h2&gt;Carpeta&lt;/h2&gt;&lt;/article&gt;"""
+soup = BeautifulSoup(documento, "html.parser")
+filas = []
+for producto in soup.select("article.producto"):
+    nombre = producto.select_one("h2")
+    precio = producto.select_one(".precio")
+    texto = precio.get_text(strip=True) if precio else None
+    importe = Decimal(texto.replace("€", "").strip().replace(",", ".")) if texto else None
+    filas.append({"producto": nombre.get_text(strip=True) if nombre else None,
+                  "precio_eur": importe, "incidencia": "sin precio" if precio is None else ""})
+productos = pd.DataFrame(filas)
+print(productos)
+assert len(productos) == 3
+assert productos["precio_eur"].isna().sum() == 1</code></pre><p>Se obtienen Cuaderno → 3,50 €, Lápiz → 1,20 € y Carpeta → ausente. La carpeta se conserva con una incidencia; no se convierte en un producto gratuito. La conversión supone euros, coma decimal y ausencia de separadores de millares: un valor como «1.299,95 €» requiere otra regla explícita. <code>Decimal</code> evita el redondeo binario de los importes en este ejemplo.</p><p class="aula-fuente">Consulta: <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">Beautiful Soup: selectores y extracción de texto</a>.</p><details class="aula-check"><summary>¿Por qué no recibimos siempre todo lo que vemos en el navegador?</summary><p>Una página puede incorporar datos mediante JavaScript después de cargar el HTML. requests descarga la respuesta HTTP y BeautifulSoup la analiza; no ejecutan ese JavaScript. Busca una API documentada o estudia una herramienta de navegador cuando esté permitido.</p></details></section><section class="aula" id="sql-guiado"><h2>Práctica guiada 4 · la misma pregunta con SQL</h2><p>Creamos una base temporal en memoria con tres clientes ficticios. Se cerrará al terminar el bloque; no afecta a ninguna base del centro. La pregunta es la misma que en pandas.</p><pre><code>import sqlite3
+import pandas as pd
+clientes = pd.DataFrame({"nombre": ["Ana", "Luis", "Eva"],
+                         "edad": [35, 30, 42], "ciudad": ["Madrid", "Madrid", "Santander"]})
+with sqlite3.connect(":memory:") as conexion:
+    clientes.to_sql("clientes", conexion, index=False)
+    consulta = "SELECT nombre, edad FROM clientes WHERE ciudad = ? AND edad &gt; ? ORDER BY nombre"
+    resultado_sql = pd.read_sql_query(consulta, conexion, params=("Madrid", 30))
+print(resultado_sql)
+assert resultado_sql["nombre"].tolist() == ["Ana"]</code></pre><p><code>SELECT</code> elige columnas, <code>FROM</code> indica la tabla, <code>WHERE</code> filtra y <code>ORDER BY</code> ordena. Los signos <code>?</code> reciben valores separados de la consulta; no construyas SQL concatenando entradas del usuario. La salida vuelve a ser Ana, 35. Para buscar ausentes en SQL se utiliza <code>IS NULL</code>, no <code>= NULL</code>.</p><details class="aula-check"><summary>¿La consulta original por ciudad exige tener más de 30 años?</summary><p>No. La consulta original solo filtra Madrid. El ejemplo guiado añade AND edad &gt; 30 para responder exactamente a la pregunta del CSV.</p></details></section><div class="aula-original" id="material-base"><h2>Material de referencia original</h2><div class="exe-text-template">
     <p>Veamos varios ejemplos sencillos para relacionar teoría y práctica.</p>
 <div class="exe-fx exe-tabs">
 <h2>Ejemplo 1: Extracción desde un CSV (datos estructurados)</h2>
 <ul>
-<li>Tenemos un fichero CSV con una lista de clientes:<br /><a href="https://raw.githubusercontent.com/josedavidmi/iabd-sbd/refs/heads/main/clientes.csv" target="_blank" title="" rel="noopener">https://raw.githubusercontent.com/josedavidmi/iabd-sbd/refs/heads/main/clientes.csv</a>
+<li>Tenemos un fichero CSV con una lista de clientes:<br><a href="https://raw.githubusercontent.com/josedavidmi/iabd-sbd/refs/heads/main/clientes.csv" target="_blank" title="" rel="noopener">https://raw.githubusercontent.com/josedavidmi/iabd-sbd/refs/heads/main/clientes.csv</a>
 <ul>
 <li>Columnas: nombre, edad, ciudad.</li>
 </ul>
@@ -65,12 +113,12 @@
 <p><strong>En Python (usando Pandas) podríamos:</strong></p>
 <ol>
 <li>Usar <span style="font-family: courier new, courier, monospace;">df = pd.read_csv('clientes.csv')</span> para cargar los datos en un DataFrame (una tabla).</li>
-<li>Aplicar un filtro encadenado con la lógica:<br /><span style="font-family: courier new, courier, monospace;">df_filtrado = df[(df['ciudad'] == 'Madrid') &amp; (df['edad'] &gt; 30)].</span></li>
+<li>Aplicar un filtro encadenado con la lógica:<br><span style="font-family: courier new, courier, monospace;">df_filtrado = df[(df['ciudad'] == 'Madrid') &amp; (df['edad'] &gt; 30)]</span></li>
 <li>El resultado (<span style="font-family: courier new, courier, monospace;">df_filtrado</span>) es una tabla con solo los clientes que cumplen esas condiciones.</li>
 </ol>
 <p style="text-align: justify;">Hemos realizado una extracción de información filtrando un conjunto de datos más grande, lo que nos deja la información lista para el análisis.</p>
 <p><strong>Solución</strong>: <a href="https://colab.research.google.com/drive/1CPaRcZNcPMXLAwHdfv6KEuQpBUz1G1j_?usp=sharing" target="_blank" rel="noopener" title="">https://colab.research.google.com/drive/1CPaRcZNcPMXLAwHdfv6KEuQpBUz1G1j_?usp=sharing</a></p>
-<h2>Ejemplo 2: Extracción desde una API (datos semiestructurados)</h2>
+<h2>Ejemplo 2 original: cliente especializado de Open-Meteo (ampliación)</h2>
 <ul>
 <li style="text-align: justify;">Queremos obtener el <strong>pronóstico de temperatura por hora</strong> para el día actual en una ubicación específica (Castro Urdiales), y transformar los datos semiestructurados (JSON) de la API en una tabla (DataFrame) limpia y lista para el análisis.</li>
 </ul>
@@ -78,8 +126,8 @@
 <p style="text-align: justify;">La API de Open-Meteo nos proporciona los datos en un formato optimizado, donde las variables (temperaturas) y las series de tiempo están separadas. El proceso de extracción consiste en <strong>unir</strong> estos datos y meterlos en un DataFrame de Pandas.</p>
 <ol>
 <li><strong>Configuración del Cliente de API</strong>: Se usan librerías como <span style="font-family: courier new, courier, monospace;">requests_cache</span> y <span style="font-family: courier new, courier, monospace;">retry_requests</span> para configurar el cliente de la API (openmeteo) con una capa de <strong>caché</strong> (para velocidad) y <strong>reintento</strong> (para fiabilidad), en lugar de una simple petición.</li>
-<li style="text-align: left;"><strong>Petición a la API (Extracción)</strong>: Se define la URL y los parámetros de la consulta (coordenadas de Castro Urdiales y la variable temperature_2m).                                                                                                                                                                                                              <span style="font-family: courier new, courier, monospace;"># Definición de la consulta</span><br /><span style="font-family: courier new, courier, monospace;">params = {</span><br /><span style="font-family: courier new, courier, monospace;">        "latitude": 43.3828,</span><br /><span style="font-family: courier new, courier, monospace;">        "longitude": -3.2204,</span><br /><span style="font-family: courier new, courier, monospace;">        "hourly": "temperature_2m", # Variable solicitada</span><br /><span style="font-family: courier new, courier, monospace;">        "forecast_days": 1,</span><br /><span style="font-family: courier new, courier, monospace;">}</span><br /><span style="font-family: courier new, courier, monospace;"># Llamada a la API</span><br /><span style="font-family: courier new, courier, monospace;">responses = openmeteo.weather_api(url, params=params)</span></li>
-<li style="text-align: left;"><span style="font-family: courier new, courier, monospace;"></span><span style="font-family: courier new, courier, monospace;"></span><strong>Procesamiento y Transformación</strong> (Data Wrangling):<br />
+<li style="text-align: left;"><strong>Petición a la API (Extracción)</strong>: Se define la URL y los parámetros de la consulta (coordenadas de Castro Urdiales y la variable temperature_2m).                                                                                                                                                                                                              <span style="font-family: courier new, courier, monospace;"># Definición de la consulta</span><br><span style="font-family: courier new, courier, monospace;">params = {</span><br><span style="font-family: courier new, courier, monospace;">        "latitude": 43.3828,</span><br><span style="font-family: courier new, courier, monospace;">        "longitude": -3.2204,</span><br><span style="font-family: courier new, courier, monospace;">        "hourly": "temperature_2m", # Variable solicitada</span><br><span style="font-family: courier new, courier, monospace;">        "forecast_days": 1,</span><br><span style="font-family: courier new, courier, monospace;">}</span><br><span style="font-family: courier new, courier, monospace;"># Llamada a la API</span><br><span style="font-family: courier new, courier, monospace;">responses = openmeteo.weather_api(url, params=params)</span></li>
+<li style="text-align: left;"><span style="font-family: courier new, courier, monospace;"></span><span style="font-family: courier new, courier, monospace;"></span><strong>Procesamiento y Transformación</strong> (Data Wrangling):<br>
 <ul>
 <li style="text-align: left;">La respuesta de la API contiene la serie de tiempo (marca de inicio, fin e intervalo) por un lado, y los valores de temperatura (como un array de números) por otro.</li>
 <li style="text-align: left;">Usamos Pandas (pd.date_range) para generar correctamente la columna de fechas/horas a partir de la serie de tiempo.</li>
@@ -88,14 +136,14 @@
 </li>
 </ol>
 <p>El resultado es una tabla con dos columnas: date y temperature_2m, perfecta para el análisis posterior.</p>
-<p style="text-align: center;"><br /><img src="../content/resources/Captura.PNG" alt="" width="259" height="187" /> </p>
+<p style="text-align: center;"><br><img src="../content/resources/Captura.PNG" alt="Captura original de una tabla de temperatura por hora; los valores son ilustrativos, no un pronóstico actual" width="259" height="187"> </p>
 <p><strong>Conceptos Reforzados</strong></p>
 <ul>
-<li>API como fuente estructurada: Aunque el formato de la respuesta (JSON) es semiestructurado, la API garantiza que los datos vengan en una estructura predecible.</li>
+<li>API y representación: la ruta básica recibe JSON; el cliente especializado de este ejemplo utiliza FlatBuffers. La documentación describe el esquema esperado, pero debemos comprobar la respuesta.</li>
 <li><strong>Transformación Obligatoria</strong>: En este caso, la <strong>extracción</strong> de los datos del objeto response y su <strong>transformación</strong> en un DataFrame (pd.DataFrame) son pasos obligatorios para hacerlos utilizables y analizables.</li>
-<li><strong>Fiabilidad</strong>: El uso de caché y reintento muestra una práctica profesional en la extracción de datos: priorizar la velocidad y la tolerancia a fallos.<br /><strong>Solución</strong>: <a href="https://colab.research.google.com/drive/13w9YOpfMhjh49lAb3UY2MOpfw_UVrA1H?usp=sharing" target="_blank" title="" rel="noopener">https://colab.research.google.com/drive/13w9YOpfMhjh49lAb3UY2MOpfw_UVrA1H?usp=sharing</a></li>
+<li><strong>Fiabilidad</strong>: El uso de caché y reintento muestra una práctica profesional en la extracción de datos: priorizar la velocidad y la tolerancia a fallos.<br><strong>Solución</strong>: <a href="https://colab.research.google.com/drive/13w9YOpfMhjh49lAb3UY2MOpfw_UVrA1H?usp=sharing" target="_blank" title="" rel="noopener">https://colab.research.google.com/drive/13w9YOpfMhjh49lAb3UY2MOpfw_UVrA1H?usp=sharing</a></li>
 </ul>
-<h2>Ejemplo 3: Scraping de una web (datos no estructurados)</h2>
+<h2>Ejemplo 3: Scraping de una web (HTML y contenido textual)</h2>
 <p>Queremos conocer los precios de una lista de productos en una tienda online.</p>
 <ol>
 <li>Accedemos a la página web de la tienda.</li>
@@ -120,7 +168,7 @@
 </div>
 <p> </p>
 </div>
-</div>
+</div></div>
 </div>
 </article>
 </div></main><div class="nav-buttons">

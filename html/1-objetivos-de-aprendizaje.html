@@ -10,10 +10,10 @@
 <script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
 <script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
 <link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
-</head>
+<link rel="stylesheet" href="../content/resources/aula-revision.css"></head>
 <body class="exe-export exe-web-site">
 <script>document.body.className+=" js"</script>
-<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-35xbikocs" id="skipNav">Skip to content</a> <nav id="siteNav">
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-35xbikocs" id="skipNav">Saltar al contenido</a> <nav id="siteNav">
 <ul>
 <li> <a href="../index.html" class="main-node no-ch">Técnicas y procesos de extracción de información</a>
 </li>
@@ -43,12 +43,10 @@
 </header><div id="page-content-page-mupyqxda-35xbikocs" class="page-content">
 <article id="block-mupyqxdc-j8k6nna02" class="box no-header">
 <header class="box-head no-icon">
-<button class="box-toggle box-toggle-on" title="Toggle content">
-<span>Toggle content</span>
-</button></header>
+<button class="box-toggle box-toggle-on" title="Ocultar o mostrar contenido"><span>Ocultar o mostrar contenido</span></button></header>
 <div class="box-content">
-<div id="idevice-mupyqxdc-rhy331r1y" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mupyqxdc-rhy331r1y&quot;}">
-<p>Al finalizar este tema, serás capaz de:</p>
+<div id="idevice-mupyqxdc-rhy331r1y" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data='{"ideviceId":"idevice-mupyqxdc-rhy331r1y"}'><nav class="aula-indice" aria-label="En esta página"><strong>En esta página:</strong> <a href="#evidencias">Qué significa haber aprendido</a><a href="#preparacion">Antes de comenzar</a><a href="#material-base">Material de referencia original</a></nav><section class="aula" id="evidencias"><h2>Qué significa haber aprendido</h2><div class="aula-table"><table><thead><tr><th scope="col">Capacidad</th><th scope="col">Prueba observable</th><th scope="col">Dónde practicar</th></tr></thead><tbody><tr><td>Elegir una fuente</td><td>Distingues datos disponibles, formato y modo de acceso.</td><td>3.1 y ejemplo CSV.</td></tr><tr><td>Diagnosticar calidad</td><td>Identificas ausentes, duplicados y tipos antes de modificar.</td><td>3.2 y actividad 1.</td></tr><tr><td>Extraer por API</td><td>Explicas parámetros, estado HTTP, JSON y unidades.</td><td>Ejemplo API y actividad 2.</td></tr><tr><td>Extraer de HTML</td><td>Seleccionas cada producto y controlas precios ausentes.</td><td>Ejemplo HTML y actividad 3.</td></tr><tr><td>Consultar SQL</td><td>Filtras columnas y filas, y contrastas con pandas.</td><td>Demostración SQL en ejemplos.</td></tr><tr><td>Completar un ETL</td><td>Exportas, vuelves a leer y justificas el resumen.</td><td>Actividad 4.</td></tr></tbody></table></div><p>Estos son objetivos didácticos de esta unidad; el profesorado los vinculará a los resultados y criterios de su programación de IABD.</p></section><section class="aula" id="preparacion"><h2>Antes de comenzar</h2><p>Necesitas reconocer variables, listas, diccionarios, condiciones y funciones de Python. Una lista guarda elementos en orden; un diccionario asocia claves y valores. Un DataFrame representa una tabla, pero su índice no identifica necesariamente a una persona.</p><pre><code>persona = {"nombre": "Ana", "direccion": {"ciudad": "Madrid"}}
+print(persona["direccion"]["ciudad"])</code></pre><p>La salida es <code>Madrid</code>: la primera clave devuelve otro diccionario y la segunda obtiene el valor. Este recorrido reaparece en las respuestas JSON.</p><p>En Colab, una celda de código usa las variables de la sesión. Si aparece <code>NameError</code>, revisa si has ejecutado la celda que las crea. Guardar el notebook en Drive no conserva automáticamente todos los CSV de la sesión: descarga también tus resultados.</p><details class="aula-check"><summary>¿Basta con que el código termine sin errores?</summary><p>No. Debes contrastar filas, tipos, valores y unidades. Un filtro que devuelve cero filas puede ejecutarse correctamente y estar usando una ciudad escrita de otra manera.</p></details></section><div class="aula-original" id="material-base"><h2>Material de referencia original</h2><p>Al finalizar este tema, serás capaz de:</p>
 <ul>
 <li>Comprender qué significa <strong>extraer información</strong> de datos estructurados, semiestructurados y no estructurados.</li>
 <li>Identificar y describir las principales técnicas de extracción de datos:
@@ -75,7 +73,7 @@
 </ul>
 </li>
 </ul>
-</div>
+</div></div>
 </div>
 </article>
 </div></main><div class="nav-buttons">
