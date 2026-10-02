@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+<link rel="stylesheet" type="text/css" href="base.css" />
+<link rel="stylesheet" type="text/css" href="exe_effects.css" />
+<link rel="stylesheet" type="text/css" href="content.css" />
+<link rel="stylesheet" type="text/css" href="nav.css" />
+<meta http-equiv="content-type" content="text/html;  charset=utf-8" />
+<title>3.3 Herramientas básicas de extracción y limpieza | Técnicas y procesos de extracción de información </title>
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="license" type="text/html" href="http://creativecommons.org/licenses/by-sa/4.0/" />
+<meta name="generator" content="eXeLearning 2.9 - exelearning.net" />
+<!--[if lt IE 9]><script type="text/javascript" src="exe_html5.js"></script><![endif]-->
+<script type="text/javascript" src="exe_jquery.js"></script>
+<script type="text/javascript" src="exe_effects.js"></script>
+<script type="text/javascript" src="common_i18n.js"></script>
+<script type="text/javascript" src="common.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+<body class="exe-web-site" id="exe-node-42"><script type="text/javascript">document.body.className+=" js"</script>
+<div id="content">
+<p id="skipNav"><a href="#main" class="sr-av">Saltar la navegación</a></p>
+<header id="header" ><div id="headerContent">Técnicas y procesos de extracción de información</div></header>
+<nav id="siteNav">
+<ul>
+   <li><a href="index.html" class="daddy main-node">Técnicas y procesos de extracción de información</a></li>
+   <li><a href="1_objetivos_de_aprendizaje.html" class="no-ch">1. Objetivos de aprendizaje</a></li>
+   <li><a href="2_introduccin_qu_es_la_extraccin_de_informacin.html" class="no-ch">2. Introducción: ¿qué es la extracción de información?</a></li>
+   <li class="current-page-parent"><a href="3_conceptos_bsicos.html" class="current-page-parent daddy">3. Conceptos básicos</a>
+   <ul>
+      <li><a href="31_mtodos_de_extraccin_de_datos.html" class="no-ch">3.1 Métodos de extracción de datos</a></li>
+      <li><a href="32_data_wrangling_preparacin_de_datos.html" class="no-ch">3.2 Data Wrangling (preparación de datos)</a></li>
+      <li id="active"><a href="33_herramientas_bsicas_de_extraccin_y_limpieza.html" class="active no-ch">3.3 Herramientas básicas de extracción y limpieza</a></li>
+   </ul>
+   </li>
+   <li><a href="4_ejemplos_prcticos.html" class="no-ch">4. Ejemplos prácticos</a></li>
+   <li><a href="5_actividades_prcticas.html" class="no-ch">5. Actividades prácticas</a></li>
+</ul>
+</nav>
+<div id='topPagination'>
+<nav class="pagination noprt">
+<a href="32_data_wrangling_preparacin_de_datos.html" class="prev"><span><span>&laquo; </span>Anterior</span></a> <span class="sep">| </span><a href="4_ejemplos_prcticos.html" class="next"><span>Siguiente<span> &raquo;</span></span></a>
+</nav>
+</div>
+<div id="main-wrapper">
+<section id="main">
+<header id="nodeDecoration"><h1 id="nodeTitle">3.3 Herramientas básicas de extracción y limpieza</h1></header>
+<article class="iDevice_wrapper textIdevice" id="id152">
+<div class="iDevice emphasis0" >
+<div id="ta152_128_2" class="block iDevice_content">
+<div class="exe-text"><p>Para empezar a trabajar con extracción y preparación de datos no hace falta ser experto ni usar herramientas muy complicadas.</p>
+<p><strong>a) Excel / Google Sheets</strong></p>
+<p><strong>b) Python + librerías</strong></p>
+<p><strong>c) Herramientas ETL (más avanzadas)</strong></p>
+<p></p>
+<div class="exe-fx exe-tabs">
+<h2>Excel / Google Sheets</h2>
+<p>Son herramientas muy accesibles y suficientes para tareas básicas:</p>
+<ul>
+<li><strong>Filtros</strong>: para ver solo ciertos registros.</li>
+<li><strong>Buscar y reemplazar</strong>: para corregir errores de escritura.</li>
+<li><strong>Funciones</strong> (SI, CONTAR, SUMAR.SI, etc.).</li>
+<li><strong>Tablas dinámicas</strong>: para hacer resúmenes (por ejemplo, número de clientes por ciudad).</li>
+</ul>
+<p>Excel es muy útil para aprender los conceptos antes de pasar a herramientas más avanzadas.</p>
+<h2>Python + librerías</h2>
+<p>Cuando los datos crecen o queremos automatizar:</p>
+<ul>
+<li><strong>pandas</strong>:
+<ul>
+<li>Librería para manipulación y limpieza de datos.</li>
+<li>Permite leer CSV, Excel, JSON… y trabajar con ellos de forma muy flexible.</li>
+</ul>
+</li>
+<li><strong>requests</strong>:
+<ul>
+<li>Librería para hacer peticiones a APIs.</li>
+<li>Sirve para “llamar” a una URL y obtener datos (normalmente JSON).</li>
+</ul>
+</li>
+<li><strong>BeautifulSoup</strong>:
+<ul>
+<li>Librería para hacer scraping web.</li>
+<li>Permite extraer información de páginas HTML.</li>
+</ul>
+</li>
+</ul>
+<p>Estas herramientas permiten construir scripts (programas) que:</p>
+<ol>
+<li>Descargan datos (de un fichero o una API).</li>
+<li>Limpian y transforman esos datos.</li>
+<li>Los guardan listos para análisis o visualización.</li>
+</ol>
+<h2>Herramientas ETL (más avanzadas)</h2>
+<p>ETL significa: <strong>Extract – Transform – Load</strong> (Extraer – Transformar – Cargar).</p>
+<p>Algunos ejemplos son: Talend, <strong>Pentaho</strong>, Apache NiFi.</p>
+<p>Se usan sobre todo en entornos profesionales donde hay que mover grandes volúmenes de datos entre sistemas, de forma regular (por ejemplo, todos los días).</p>
+<p>Para este tema <strong>no es necesario profundizar</strong> en ellas, pero es útil conocer que existen.</p>
+</div></div>
+</div>
+</div>
+</article>
+<div id="packageLicense" class="cc cc-by-sa">
+<p><span>Obra publicada con</span> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Licencia Creative Commons Reconocimiento Compartir igual 4.0</a></p>
+</div>
+</section>
+</div>
+<div id='bottomPagination'>
+<nav class="pagination noprt">
+<a href="32_data_wrangling_preparacin_de_datos.html" class="prev"><span><span>&laquo; </span>Anterior</span></a> <span class="sep">| </span><a href="4_ejemplos_prcticos.html" class="next"><span>Siguiente<span> &raquo;</span></span></a>
+</nav>
+</div>
+</div>
+<p id="made-with-eXe"><a href="https://exelearning.net/" target="_blank" rel="noopener"><span>Creado con eXeLearning<span> (Ventana nueva)</span></span></a></p><script type="text/javascript" src="my_js.js"></script></body></html>

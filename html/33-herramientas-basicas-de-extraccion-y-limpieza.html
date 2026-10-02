@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-mupyqxda-dvybsiius">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.5">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>3.3 Herramientas básicas de extracción y limpieza | Técnicas y procesos de extracción de información</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../libs/exe_effects/exe_effects.js"> </script>
+<link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-dvybsiius" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Técnicas y procesos de extracción de información</a>
+</li>
+<li> <a href="../html/1-objetivos-de-aprendizaje.html" class="no-ch">1. Objetivos de aprendizaje</a>
+</li>
+<li> <a href="../html/2-introduccion-que-es-la-extraccion-de-informacion.html" class="no-ch">2. Introducción: ¿qué es la extracción de información?</a>
+</li>
+<li class="current-page-parent"> <a href="../html/3-conceptos-basicos.html" class="daddy">3. Conceptos básicos</a>
+<ul class="other-section">
+<li> <a href="../html/31-metodos-de-extraccion-de-datos.html" class="no-ch">3.1 Métodos de extracción de datos</a>
+</li>
+<li> <a href="../html/32-data-wrangling-preparacion-de-datos.html" class="no-ch">3.2 Data Wrangling (preparación de datos)</a>
+</li>
+<li class="active"> <a href="../html/33-herramientas-basicas-de-extraccion-y-limpieza.html" class="active no-ch">3.3 Herramientas básicas de extracción y limpieza</a>
+</li>
+</ul>
+</li>
+<li> <a href="../html/4-ejemplos-practicos.html" class="no-ch">4. Ejemplos prácticos</a>
+</li>
+<li> <a href="../html/5-actividades-practicas.html" class="no-ch">5. Actividades prácticas</a>
+</li>
+</ul>
+</nav><main id="page-mupyqxda-dvybsiius" class="page"> 
+<header class="main-header">
+<div class="package-header"><p class="package-title">Técnicas y procesos de extracción de información</p></div>
+<div class="page-header"><h1 class="page-title">3.3 Herramientas básicas de extracción y limpieza</h1></div>
+</header><div id="page-content-page-mupyqxda-dvybsiius" class="page-content">
+<article id="block-mupyqxdc-4i4inoer0" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mupyqxdc-iyzj4zpww" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mupyqxdc-iyzj4zpww&quot;}">
+<p>Para empezar a trabajar con extracción y preparación de datos no hace falta ser experto ni usar herramientas muy complicadas.</p>
+<p><strong>a) Excel / Google Sheets</strong></p>
+<p><strong>b) Python + librerías</strong></p>
+<p><strong>c) Herramientas ETL (más avanzadas)</strong></p>
+<p></p>
+<div class="exe-fx exe-tabs">
+<h2>Excel / Google Sheets</h2>
+<p>Son herramientas muy accesibles y suficientes para tareas básicas:</p>
+<ul>
+<li><strong>Filtros</strong>: para ver solo ciertos registros.</li>
+<li><strong>Buscar y reemplazar</strong>: para corregir errores de escritura.</li>
+<li><strong>Funciones</strong> (SI, CONTAR, SUMAR.SI, etc.).</li>
+<li><strong>Tablas dinámicas</strong>: para hacer resúmenes (por ejemplo, número de clientes por ciudad).</li>
+</ul>
+<p>Excel es muy útil para aprender los conceptos antes de pasar a herramientas más avanzadas.</p>
+<h2>Python + librerías</h2>
+<p>Cuando los datos crecen o queremos automatizar:</p>
+<ul>
+<li><strong>pandas</strong>:
+<ul>
+<li>Librería para manipulación y limpieza de datos.</li>
+<li>Permite leer CSV, Excel, JSON… y trabajar con ellos de forma muy flexible.</li>
+</ul>
+</li>
+<li><strong>requests</strong>:
+<ul>
+<li>Librería para hacer peticiones a APIs.</li>
+<li>Sirve para “llamar” a una URL y obtener datos (normalmente JSON).</li>
+</ul>
+</li>
+<li><strong>BeautifulSoup</strong>:
+<ul>
+<li>Librería para hacer scraping web.</li>
+<li>Permite extraer información de páginas HTML.</li>
+</ul>
+</li>
+</ul>
+<p>Estas herramientas permiten construir scripts (programas) que:</p>
+<ol>
+<li>Descargan datos (de un fichero o una API).</li>
+<li>Limpian y transforman esos datos.</li>
+<li>Los guardan listos para análisis o visualización.</li>
+</ol>
+<h2>Herramientas ETL (más avanzadas)</h2>
+<p>ETL significa: <strong>Extract – Transform – Load</strong> (Extraer – Transformar – Cargar).</p>
+<p>Algunos ejemplos son: Talend, <strong>Pentaho</strong>, Apache NiFi.</p>
+<p>Se usan sobre todo en entornos profesionales donde hay que mover grandes volúmenes de datos entre sistemas, de forma regular (por ejemplo, todos los días).</p>
+<p>Para este tema <strong>no es necesario profundizar</strong> en ellas, pero es útil conocer que existen.</p>
+</div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/32-data-wrangling-preparacion-de-datos.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/4-ejemplos-practicos.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(Ventana nueva)</span></span></a></p>
+</body>
+</html>

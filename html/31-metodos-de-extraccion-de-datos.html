@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-mupyqxda-jl9p2z822">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.5">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>3.1 Métodos de extracción de datos | Técnicas y procesos de extracción de información</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../libs/exe_effects/exe_effects.js"> </script>
+<link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-jl9p2z822" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Técnicas y procesos de extracción de información</a>
+</li>
+<li> <a href="../html/1-objetivos-de-aprendizaje.html" class="no-ch">1. Objetivos de aprendizaje</a>
+</li>
+<li> <a href="../html/2-introduccion-que-es-la-extraccion-de-informacion.html" class="no-ch">2. Introducción: ¿qué es la extracción de información?</a>
+</li>
+<li class="current-page-parent"> <a href="../html/3-conceptos-basicos.html" class="daddy">3. Conceptos básicos</a>
+<ul class="other-section">
+<li class="active"> <a href="../html/31-metodos-de-extraccion-de-datos.html" class="active no-ch">3.1 Métodos de extracción de datos</a>
+</li>
+<li> <a href="../html/32-data-wrangling-preparacion-de-datos.html" class="no-ch">3.2 Data Wrangling (preparación de datos)</a>
+</li>
+<li> <a href="../html/33-herramientas-basicas-de-extraccion-y-limpieza.html" class="no-ch">3.3 Herramientas básicas de extracción y limpieza</a>
+</li>
+</ul>
+</li>
+<li> <a href="../html/4-ejemplos-practicos.html" class="no-ch">4. Ejemplos prácticos</a>
+</li>
+<li> <a href="../html/5-actividades-practicas.html" class="no-ch">5. Actividades prácticas</a>
+</li>
+</ul>
+</nav><main id="page-mupyqxda-jl9p2z822" class="page"> 
+<header class="main-header">
+<div class="package-header"><p class="package-title">Técnicas y procesos de extracción de información</p></div>
+<div class="page-header"><h1 class="page-title">3.1 Métodos de extracción de datos</h1></div>
+</header><div id="page-content-page-mupyqxda-jl9p2z822" class="page-content">
+<article id="block-mupyqxdc-81qgd0zki" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mupyqxdc-r41gxk1vy" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mupyqxdc-r41gxk1vy&quot;}">
+<p>Existen varios métodos para extraer datos según de dónde vengan:</p>
+<div class="exe-fx exe-tabs">
+<h2>Consultas a bases de datos (SQL)</h2>
+<p>Cuando los datos están en una <strong>base de datos relacional</strong> (por ejemplo, MySQL, PostgreSQL, SQL Server), se accede a ellos mediante un lenguaje llamado <strong>SQL</strong> (Structured Query Language).</p>
+<p>Con SQL podemos:</p>
+<ul>
+<li>Seleccionar qué columnas queremos ver.</li>
+<li>Filtrar registros según condiciones (por ciudad, edad, fecha…).</li>
+<li>Ordenar los resultados.</li>
+<li>Agrupar y contar datos (por ejemplo, cuántos clientes hay por ciudad).</li>
+</ul>
+<p><strong>Ejemplo:</strong></p>
+<p><span style="font-family: courier new, courier, monospace;">SELECT nombre, edad FROM clientes WHERE ciudad = 'Madrid';</span></p>
+<p>Esta consulta hace lo siguiente:</p>
+<ul>
+<li>SELECT nombre, edad → muestra solo estas dos columnas.</li>
+<li>FROM clientes → indica la tabla.</li>
+<li>WHERE ciudad = 'Madrid' → filtra solo los clientes cuya ciudad es Madrid.</li>
+</ul>
+<p>Es decir, <strong>extrae solo la información que necesitamos</strong>, no toda la base de datos.</p>
+<p><strong>¿Cuándo usar SQL?</strong></p>
+<ul>
+<li>Cuando los datos ya están guardados en una base de datos.</li>
+<li>Cuando necesitamos trabajar con grandes cantidades de datos de forma eficiente.</li>
+</ul>
+<h2>APIs (Interfaces de Programación de Aplicaciones)</h2>
+<p>Una <strong>API</strong> es una puerta de acceso que nos permite pedir datos a una aplicación o servicio (por ejemplo, Twitter/X, Google Maps, OpenWeather…).</p>
+<p>En lugar de descargar un archivo manualmente, usamos una URL o una llamada desde un programa para pedir datos y recibirlos en un formato estructurado, como JSON.</p>
+<p><strong>Ejemplo de uso de una API:</strong></p>
+<ul>
+<li>Pedir a la API de Twitter los últimos 100 tuits con un hashtag concreto.</li>
+<li>Pedir a la API de OpenWeather el tiempo actual en una ciudad.</li>
+</ul>
+<p><strong>Ventajas de las APIs:</strong></p>
+<ul>
+<li>Los datos suelen estar <strong>actualizados</strong>.</li>
+<li>Vienen ya en un formato <strong>estructurado</strong> (normalmente JSON).</li>
+<li>Permiten automatizar la recogida de datos (por ejemplo, todos los días a una hora).</li>
+</ul>
+<p><strong>Idea:</strong></p>
+<p>Una API es como un “camarero digital”: tú haces un pedido (request) y te trae los datos que has pedido (response).</p>
+<h2> Web scraping</h2>
+<p>El <strong>web scraping</strong> consiste en extraer información directamente de una página web, leyendo el código HTML que hay detrás.</p>
+<p>Por ejemplo, en una tienda online, a simple vista ves el nombre del producto y el precio. Con scraping, un programa “lee” ese contenido y lo guarda en una tabla.</p>
+<p><strong>Ejemplo de uso:</strong></p>
+<ul>
+<li>Extraer precios de productos de varias tiendas para compararlos.</li>
+<li>Obtener la lista de partidos y resultados de una página de deportes.</li>
+</ul>
+<p><strong>Herramientas habituales:</strong></p>
+<ul>
+<li>En Python:
+<ul>
+<li>BeautifulSoup: para leer y parsear el HTML.</li>
+<li>Selenium: para interactuar con páginas más complejas (con JavaScript, botones, etc.).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Importante:</strong><br />Hay que respetar siempre las condiciones de uso de las webs (términos de servicio) y las leyes de protección de datos. No todo se puede scrapear libremente. </p>
+<h2>Minería de texto (Text Mining)</h2>
+<p>La <strong>minería de texto</strong> se centra en trabajar con grandes cantidades de <strong>texto libre</strong>:</p>
+<ul>
+<li>Comentarios de usuarios.</li>
+<li>Reseñas de productos.</li>
+<li>Correos electrónicos.</li>
+<li>Publicaciones en redes sociales.</li>
+</ul>
+<p>Con técnicas de minería de texto podemos:</p>
+<ul>
+<li>Extraer <strong>palabras clave</strong>.</li>
+<li>Detectar <strong>sentimientos</strong> (positivo, negativo, neutro).</li>
+<li>Identificar <strong>temas habituales</strong> que aparecen en los textos.</li>
+</ul>
+<p><strong>Ejemplo:</strong></p>
+<p>Analizar opiniones de clientes sobre un producto en Amazon:</p>
+<ul>
+<li>¿La mayoría son positivas o negativas?</li>
+<li>¿Qué palabras se repiten (por ejemplo, “envío”, “calidad”, “precio”)?</li>
+</ul>
+</div>
+<p> </p>
+<p> </p>
+<p></p>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/3-conceptos-basicos.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/32-data-wrangling-preparacion-de-datos.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(Ventana nueva)</span></span></a></p>
+</body>
+</html>

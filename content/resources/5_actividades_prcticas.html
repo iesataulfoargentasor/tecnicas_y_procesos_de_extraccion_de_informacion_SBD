@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+<link rel="stylesheet" type="text/css" href="base.css" />
+<link rel="stylesheet" type="text/css" href="exe_effects.css" />
+<link rel="stylesheet" type="text/css" href="content.css" />
+<link rel="stylesheet" type="text/css" href="nav.css" />
+<meta http-equiv="content-type" content="text/html;  charset=utf-8" />
+<title>5. Actividades prácticas | Técnicas y procesos de extracción de información </title>
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="license" type="text/html" href="http://creativecommons.org/licenses/by-sa/4.0/" />
+<meta name="generator" content="eXeLearning 2.9 - exelearning.net" />
+<!--[if lt IE 9]><script type="text/javascript" src="exe_html5.js"></script><![endif]-->
+<script type="text/javascript" src="exe_jquery.js"></script>
+<script type="text/javascript" src="exe_effects.js"></script>
+<script type="text/javascript" src="common_i18n.js"></script>
+<script type="text/javascript" src="common.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+<body class="exe-web-site" id="exe-node-44"><script type="text/javascript">document.body.className+=" js"</script>
+<div id="content">
+<p id="skipNav"><a href="#main" class="sr-av">Saltar la navegación</a></p>
+<header id="header" ><div id="headerContent">Técnicas y procesos de extracción de información</div></header>
+<nav id="siteNav">
+<ul>
+   <li><a href="index.html" class="daddy main-node">Técnicas y procesos de extracción de información</a></li>
+   <li><a href="1_objetivos_de_aprendizaje.html" class="no-ch">1. Objetivos de aprendizaje</a></li>
+   <li><a href="2_introduccin_qu_es_la_extraccin_de_informacin.html" class="no-ch">2. Introducción: ¿qué es la extracción de información?</a></li>
+   <li><a href="3_conceptos_bsicos.html" class="daddy">3. Conceptos básicos</a>
+   <ul class="other-section">
+      <li><a href="31_mtodos_de_extraccin_de_datos.html" class="no-ch">3.1 Métodos de extracción de datos</a></li>
+      <li><a href="32_data_wrangling_preparacin_de_datos.html" class="no-ch">3.2 Data Wrangling (preparación de datos)</a></li>
+      <li><a href="33_herramientas_bsicas_de_extraccin_y_limpieza.html" class="no-ch">3.3 Herramientas básicas de extracción y limpieza</a></li>
+   </ul>
+   </li>
+   <li><a href="4_ejemplos_prcticos.html" class="no-ch">4. Ejemplos prácticos</a></li>
+   <li id="active"><a href="5_actividades_prcticas.html" class="active no-ch">5. Actividades prácticas</a></li>
+</ul>
+</nav>
+<div id='topPagination'>
+<nav class="pagination noprt">
+<a href="4_ejemplos_prcticos.html" class="prev"><span><span>&laquo; </span>Anterior</span></a>
+</nav>
+</div>
+<div id="main-wrapper">
+<section id="main">
+<header id="nodeDecoration"><h1 id="nodeTitle">5. Actividades prácticas</h1></header>
+<article class="iDevice_wrapper textIdevice" id="id154">
+<div class="iDevice emphasis0" >
+<div id="ta154_130_2" class="block iDevice_content">
+<div class="exe-text"><div class="exe-fx exe-paginated">
+<h2>Actividad 1 – Limpieza de Datos con Pandas</h2>
+<p><strong>Material</strong></p>
+<p>El fichero de datos para esta actividad (clientes_actividad.csv) está alojado en un repositorio de GitHub.</p>
+<p>URL RAW (Cruda) de los datos: <a href="https://raw.githubusercontent.com/josedavidmi/iabd-sbd/refs/heads/main/clientes_actividad.csv">https://raw.githubusercontent.com/josedavidmi/iabd-sbd/refs/heads/main/clientes_actividad.csv</a></p>
+<p><strong>Tareas del Alumnado</strong></p>
+<p>El objetivo es cargar el fichero de datos, limpiarlo y generar un informe resumen.</p>
+<p><strong>1. Carga de Datos (Extracción)</strong></p>
+<ol>
+<li>Abre un nuevo cuaderno de <strong>Google Colab</strong>.</li>
+<li>Importa las librerías pandas.</li>
+<li>Carga el fichero clientes_actividad.csv directamente desde la <strong>URL RAW de GitHub</strong> en un DataFrame llamado df.</li>
+</ol>
+<p><strong>2. Limpieza de Datos (Data Wrangling)</strong></p>
+<p><strong>Advertencia</strong>: Los datos contienen duplicados y errores de formato.</p>
+<ol>
+<li><strong>Eliminar Duplicados</strong>:
+<ol>
+<li>Detecta y elimina los registros que están completamente duplicados (comparando todas las columnas).</li>
+<li>Usa el método<span style="font-family: courier new, courier, monospace;"> .drop_duplicates()</span> de Pandas.</li>
+</ol>
+</li>
+<li><strong>Corregir Errores de Escritura (Normalización):</strong>
+<ul>
+<li>Identifica los errores de escritura en la columna ciudad (Madird, Mdrid, Valenca, Barcleona).</li>
+<li>Usa el método<span style="font-family: courier new, courier, monospace;"> .replace()</span> o <span style="font-family: courier new, courier, monospace;">.loc[]</span> de Pandas para unificar todos los nombres incorrectos al nombre correcto (<strong>Madrid, Valencia, Barcelona,</strong> etc.).</li>
+</ul>
+</li>
+<li><strong>Unificar el Formato de Fechas</strong>:
+<ul>
+<li>La columna fecha_registro tiene varios formatos (guiones, barras, año completo, año corto).</li>
+<li>Convierte toda la columna al tipo de dato datetime de Pandas (usando <span style="font-family: courier new, courier, monospace;">pd.to_datetime()</span>).</li>
+<li>Una vez convertida, aplica el formato estándar <strong>DD/MM/AAAA</strong> (Día/Mes/Año) para mostrarla de forma unificada (usando el método <span style="font-family: courier new, courier, monospace;">.dt.strftime()</span>).</li>
+</ul>
+</li>
+</ol>
+<p><strong>3. Generación del Informe (Resumen)</strong></p>
+<ol>
+<li>Crea una tabla resumen que muestre: <strong>el número total de clientes por cada ciudad.</strong></li>
+<li>Para esto, utiliza una combinación de los métodos <span style="font-family: courier new, courier, monospace;">.groupby()</span> y <span style="font-family: courier new, courier, monospace;">.count()</span> o el método <span style="font-family: courier new, courier, monospace;">.value_counts()</span> de Pandas.</li>
+</ol>
+<p><strong>Objetivo de la actividad</strong></p>
+<ul>
+<li>Comprender que la <strong>limpieza</strong> y <strong>normalización</strong> es el paso más crítico tras la extracción de datos en bruto.</li>
+<li>Practicar las funciones esenciales de limpieza de datos en la herramienta estándar de Python para Data Science: <strong>Pandas</strong>.</li>
+<li>Generar un resumen analítico simple a partir de datos limpios.</li>
+</ul>
+<h2>Actividad 2 – Uso de una API pública (nivel básico con JSON)</h2>
+<p><strong>Contexto</strong><br />En esta actividad, simularás la tarea de un analista que necesita obtener el pronóstico de la temperatura horaria para una ciudad específica (por ejemplo, Castro Urdiales), accediendo a una API profesional de datos meteorológicos.</p>
+<p> <strong>Material</strong></p>
+<ul>
+<li>Cuaderno de <strong>Google Colab</strong>.</li>
+<li>Acceso a la API pública de <strong>Open-Meteo</strong>.</li>
+<li>Librerías de Python: <span style="font-family: courier new, courier, monospace;">openmeteo_requests, pandas, requests_cache</span>, y <span style="font-family: courier new, courier, monospace;">retry_requests</span>. </li>
+</ul>
+<p><strong>Tareas del Alumnado</strong><br />El objetivo es extraer la temperatura horaria del día de hoy y transformarla en un formato de tabla utilizable.</p>
+<p><strong>1. Preparación y Extracción (API)</strong></p>
+<ol>
+<li><strong>Configura el cliente de la API</strong> en Colab (tal como se ha visto en clase), implementando la <strong>caché</strong> y los <strong>reintentos</strong> (retry) para garantizar una extracción eficiente y fiable.</li>
+<li><strong>Define los parámetros</strong> de la consulta para obtener los siguientes datos para <strong>Santander</strong> (Latitud : 43.440829950828544, Longitud : -3.8223838944785076):
+<ul>
+<li>Pronóstico <strong>horario</strong> de la variable <strong>temperature_2m</strong>.</li>
+<li>El pronóstico debe limitarse a<strong> 1 día</strong> (forecast_days: 1).</li>
+</ul>
+</li>
+<li><strong>Ejecuta la solicitud</strong> a la API y almacena la respuesta.</li>
+</ol>
+<p><strong>2. Transformación de Datos (Pandas)</strong></p>
+<ol>
+<li>Accede a la parte de la respuesta que contiene los <strong>datos horarios</strong> (response.Hourly()).</li>
+<li>Extrae por separado:
+<ul>
+<li>La <strong>serie de tiempo</strong> (las marcas de tiempo para cada hora).</li>
+<li>Los <strong>valores</strong> de temperatura (temperature_2m).</li>
+</ul>
+</li>
+<li><strong>Crea un DataFrame de Pandas</strong> que combine estas dos extracciones en columnas separadas: Hora y Temperatura (°C).
+<ul>
+<li>Pista: Asegúrate de que las marcas de tiempo se conviertan correctamente a fechas y horas legible usando <span style="font-family: courier new, courier, monospace;">pd.to_datetime()</span>.</li>
+</ul>
+</li>
+</ol>
+<p><strong>3. Conclusión (Análisis)</strong></p>
+<ol>
+<li>Una vez creado el DataFrame, utiliza Pandas para responder a la siguiente pregunta:
+<ul>
+<li><strong>¿Cuál es la temperatura máxima (max()) y la temperatura mínima (min()) pronosticadas para el día de hoy?</strong></li>
+</ul>
+</li>
+<li>Imprime el DataFrame completo y las temperaturas máximas y mínimas encontradas.</li>
+</ol>
+<p><strong>Objetivo de la actividad</strong></p>
+<ul>
+<li>Comprender el flujo de trabajo completo: <strong>Configuración de cliente → Extracción de datos JSON desde la API → Transformación a un DataFrame.</strong></li>
+<li>Practicar la <strong>desestructuración</strong> de datos semiestructurados.</li>
+<li>Aplicar funciones básicas de resumen (max, min) sobre un conjunto de datos transformado.</li>
+</ul>
+</div>
+<p></p>
+<p></p></div>
+</div>
+</div>
+</article>
+<div id="packageLicense" class="cc cc-by-sa">
+<p><span>Obra publicada con</span> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Licencia Creative Commons Reconocimiento Compartir igual 4.0</a></p>
+</div>
+</section>
+</div>
+<div id='bottomPagination'>
+<nav class="pagination noprt">
+<a href="4_ejemplos_prcticos.html" class="prev"><span><span>&laquo; </span>Anterior</span></a>
+</nav>
+</div>
+</div>
+<p id="made-with-eXe"><a href="https://exelearning.net/" target="_blank" rel="noopener"><span>Creado con eXeLearning<span> (Ventana nueva)</span></span></a></p><script type="text/javascript" src="my_js.js"></script></body></html>

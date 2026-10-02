@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-page-mupyqxda-2nupwyodc">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.5">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>3.2 Data Wrangling (preparación de datos) | Técnicas y procesos de extracción de información</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../libs/exe_effects/exe_effects.js"> </script>
+<link rel="stylesheet" href="../libs/exe_effects/exe_effects.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><link rel="stylesheet" href="../theme/style.css">
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#page-mupyqxda-2nupwyodc" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Técnicas y procesos de extracción de información</a>
+</li>
+<li> <a href="../html/1-objetivos-de-aprendizaje.html" class="no-ch">1. Objetivos de aprendizaje</a>
+</li>
+<li> <a href="../html/2-introduccion-que-es-la-extraccion-de-informacion.html" class="no-ch">2. Introducción: ¿qué es la extracción de información?</a>
+</li>
+<li class="current-page-parent"> <a href="../html/3-conceptos-basicos.html" class="daddy">3. Conceptos básicos</a>
+<ul class="other-section">
+<li> <a href="../html/31-metodos-de-extraccion-de-datos.html" class="no-ch">3.1 Métodos de extracción de datos</a>
+</li>
+<li class="active"> <a href="../html/32-data-wrangling-preparacion-de-datos.html" class="active no-ch">3.2 Data Wrangling (preparación de datos)</a>
+</li>
+<li> <a href="../html/33-herramientas-basicas-de-extraccion-y-limpieza.html" class="no-ch">3.3 Herramientas básicas de extracción y limpieza</a>
+</li>
+</ul>
+</li>
+<li> <a href="../html/4-ejemplos-practicos.html" class="no-ch">4. Ejemplos prácticos</a>
+</li>
+<li> <a href="../html/5-actividades-practicas.html" class="no-ch">5. Actividades prácticas</a>
+</li>
+</ul>
+</nav><main id="page-mupyqxda-2nupwyodc" class="page"> 
+<header class="main-header">
+<div class="package-header"><p class="package-title">Técnicas y procesos de extracción de información</p></div>
+<div class="page-header"><h1 class="page-title">3.2 Data Wrangling (preparación de datos)</h1></div>
+</header><div id="page-content-page-mupyqxda-2nupwyodc" class="page-content">
+<article id="block-mupyqxdc-svwa8u5x3" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-mupyqxdc-x6g3lcbxv" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;idevice-mupyqxdc-x6g3lcbxv&quot;}">
+<p>Extraer datos es solo el primer paso. Normalmente, cuando obtenemos datos de una base de datos, una API o un fichero, estos suelen venir:</p>
+<ul>
+<li>con errores,</li>
+<li>incompletos,</li>
+<li>en formatos diferentes,</li>
+<li>con duplicados.</li>
+</ul>
+<p>El <strong>data wrangling</strong> (o <strong>preparación de datos</strong>) es el proceso de dejar los datos<strong> limpios y ordenados</strong> para que se puedan analizar correctamente.</p>
+<p>Este proceso incluye, principalmente:</p>
+<p><strong>a) Limpieza</strong></p>
+<p><strong>b) Normalización</strong></p>
+<p><strong>c) Transformación</strong></p>
+<div class="exe-fx exe-tabs">
+<h2>Limpieza</h2>
+<ul>
+<li>Eliminar <strong>duplicados</strong> (registros repetidos).</li>
+<li>Corregir <strong>errores de escritura</strong>.</li>
+<li>Eliminar o rellenar <strong>valores faltantes</strong> (celdas vacías).</li>
+</ul>
+<p><strong>Ejemplo:</strong></p>
+<ul>
+<li>Tenemos ciudades escritas como “Madird”, “Mdrid” y “Madrid”.</li>
+<li>Debemos corregirlas todas a “Madrid” para que el análisis sea correcto.</li>
+</ul>
+<h2>Normalización</h2>
+<p>Consiste en unificar los <strong>formatos</strong> de los datos:</p>
+<ul>
+<li>Fechas:
+<ul>
+<li>Unificarlas en un solo formato (por ejemplo, dd/mm/aaaa).</li>
+</ul>
+</li>
+<li>Textos:
+<ul>
+<li>Todo en minúsculas o mayúsculas si nos conviene.</li>
+</ul>
+</li>
+<li>Números:
+<ul>
+<li>Asegurarnos de que se usan los mismos separadores decimales (coma o punto).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Ejemplo:</strong></p>
+<ul>
+<li>Fechas mezcladas: “01-02-2024”, “2024/02/01”, “1/2/24”.</li>
+<li>Lo ideal es dejarlas todas, por ejemplo, como “01/02/2024”.</li>
+</ul>
+<p>.</p>
+<h2>Transformación</h2>
+<p>Aquí adaptamos los datos para que respondan mejor a nuestras preguntas:</p>
+<ul>
+<li>Crear nuevas columnas a partir de otras.</li>
+<li>Agrupar datos.</li>
+<li>Cambiar textos por códigos numéricos, etc.</li>
+</ul>
+<p><strong>Ejemplo:</strong></p>
+<ul>
+<li>Convertir respuestas “Sí/No” en valores 1/0 para facilitar cálculos.</li>
+<li>A partir de la fecha de nacimiento, crear una columna “edad”.</li>
+</ul>
+</div>
+<p><strong>Dato importante:</strong></p>
+<p>Se estima que, en un proyecto de datos, alrededor del <strong>80% del tiempo</strong> se dedica a limpiar y preparar los datos, y solo el 20% al análisis en sí.</p>
+<p>Si los datos están mal, el análisis y las conclusiones también lo estarán.</p>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/31-metodos-de-extraccion-de-datos.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/33-herramientas-basicas-de-extraccion-y-limpieza.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+<p id="made-with-eXe"> <a href="https://exelearning.net/" target="_blank" rel="noopener"> <span>Creado con eXeLearning <span>(Ventana nueva)</span></span></a></p>
+</body>
+</html>
